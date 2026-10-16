@@ -1,0 +1,117 @@
+---
+import Icon from "./Icon.astro";
+const steps = [
+  {
+    label: "Understand",
+    title: "Start with the people.",
+    description:
+      "Before connecting tools, I try to understand the task, who does it and where the manual effort happens.",
+    example:
+      "For a CRM workflow: where does an enquiry arrive, and what does sales need to follow up?",
+    nodes: ["Ask questions", "Map the process", "Define the task"],
+    icon: "search",
+  },
+  {
+    label: "Connect",
+    title: "Give each tool a clear job.",
+    description:
+      "Break the workflow into small steps. Decide what data comes in, what needs checking and where it should go.",
+    example: "Website form → n8n validation → Odoo lead → sales notification.",
+    nodes: ["Receive input", "Check & map", "Connect the API"],
+    icon: "flow",
+  },
+  {
+    label: "Check",
+    title: "Try the awkward cases.",
+    description:
+      "A happy path is a start. Missing fields, duplicate enquiries and API errors also need a clear response.",
+    example:
+      "Try the interactive demo above with a missing email or an existing enquiry.",
+    nodes: ["Complete input", "Missing data", "Duplicate record"],
+    icon: "code",
+  },
+  {
+    label: "Improve",
+    title: "Learn from the result.",
+    description:
+      "Review what happened, ask for feedback and make the next version easier to use and maintain.",
+    example:
+      "Write down the field mapping and useful lessons so the next change starts with context.",
+    nodes: ["Review the result", "Ask for feedback", "Refine & document"],
+    icon: "spark",
+  },
+];
+---
+
+<section
+  class="approach-section section"
+  id="approach"
+  aria-labelledby="approach-title"
+>
+  <div class="wrap">
+    <div class="section-top" data-reveal>
+      <div>
+        <p class="eyebrow">BEHIND THE BUILD</p>
+        <h2 id="approach-title">
+          Small steps.
+          <br />
+          <span>Thoughtful software.</span>
+        </h2>
+      </div>
+      <p class="section-description">
+        The habits I’m developing as a junior developer. Explore the steps
+        behind a useful workflow.
+      </p>
+    </div>
+    <div class="approach-explorer" data-reveal>
+      <div class="approach-tabs" aria-label="Explore my approach">
+        {steps.map((step, i) => (
+          <button
+            id={`approach-tab-${i}`}
+            data-approach-tab={i}
+            aria-controls={`approach-panel-${i}`}
+          >
+            <span>0{i + 1}</span>
+            {step.label}
+            <Icon name="arrow" size={17} />
+          </button>
+        ))}
+      </div>
+      <div class="approach-panels">
+        {steps.map((step, i) => (
+          <div
+            class="approach-panel"
+            id={`approach-panel-${i}`}
+            data-approach-panel={i}
+            aria-labelledby={`approach-tab-${i}`}
+          >
+            <div class="approach-copy">
+              <span class="mini-label">STEP 0{i + 1} / 04</span>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+              <div class="approach-example">
+                <span>IN PRACTICE</span>
+                <p>{step.example}</p>
+              </div>
+            </div>
+            <div class="approach-diagram" aria-hidden="true">
+              <div class="diagram-orbit"></div>
+              <span class="diagram-center">
+                <Icon name={step.icon} size={32} />
+              </span>
+              <div class="diagram-nodes">
+                {step.nodes.map((node, n) => (
+                  <span>
+                    <i>0{n + 1}</i>
+                    {node}
+                    <b>✓</b>
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

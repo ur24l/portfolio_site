@@ -2,6 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import Icon from "../components/Icon.astro";
 import ProjectVisual from "../components/ProjectVisual.astro";
+import BuildApproach from "../components/BuildApproach.astro";
+import "../styles/experience.css";
 import profile from "../data/profile.json";
 import { projects, notes } from "../data/projects";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -54,6 +56,14 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
   </header>
   <main id="main">
     <section class="hero wrap" id="top" aria-labelledby="hero-title">
+      <div class="hero-atmosphere" aria-hidden="true">
+        <span></span>
+        <span></span>
+      </div>
+      <div class="hero-edition">
+        <span>DEVELOPER PORTFOLIO / {new Date().getFullYear()}</span>
+        <span>CURIOUS MIND. PRACTICAL BUILDER.</span>
+      </div>
       <div class="hero-copy">
         <p class="role-badge" data-reveal>
           <span class="status-dot"></span> Junior Software Developer · PHYTEC
@@ -93,7 +103,32 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
         </div>
       </div>
       <div class="hero-profile" data-reveal>
+        <div class="portrait-sticker sticker-odoo" aria-hidden="true">
+          <span class="sticker-icon">o.</span>
+          <div>
+            <b>Odoo CRM</b>
+            <small>Connecting the dots</small>
+          </div>
+          <span class="sticker-check">↗</span>
+        </div>
+        <div class="portrait-sticker sticker-n8n" aria-hidden="true">
+          <span class="sticker-icon">
+            <Icon name="flow" size={22} />
+          </span>
+          <div>
+            <b>n8n workflows</b>
+            <small>A little less manual work.</small>
+          </div>
+        </div>
         <div class="portrait-stage">
+          <svg
+            class="portrait-path"
+            viewBox="0 0 420 480"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path d="M-30 360C170 430 490 140 365 65S75 185 175 350s335 35 270-100" />
+          </svg>
           <div class="portrait-orbit" aria-hidden="true"></div>
           <span class="portrait-caption">
             A LITTLE CURIOSITY GOES A LONG WAY.
@@ -110,6 +145,9 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
             <span>Bhargav</span>
             <small>Always learning. Always building.</small>
           </div>
+          <span class="portrait-spark" aria-hidden="true">
+            ✳
+          </span>
         </div>
         <div class="profile-location">
           <span>
@@ -118,6 +156,18 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
           </span>
           <span>Illustrated portrait</span>
         </div>
+      </div>
+      <div class="hero-footer">
+        <a href="#work">
+          <span class="scroll-cue">
+            <Icon name="down" size={16} />
+          </span>
+          Scroll to explore
+        </a>
+        <span>PYTHON · ODOO · AUTOMATION</span>
+        <span>
+          Based in India <span class="status-dot"></span>
+        </span>
       </div>
     </section>
     <div class="focus-strip">
@@ -172,6 +222,7 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
             class:list={["project", { "project-wide": project.id === "news" }]}
             data-category={project.category}
             data-reveal
+            data-spotlight
           >
             <button
               class="project-preview"
@@ -179,6 +230,9 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
               aria-label={`Read about ${project.name}`}
             >
               <ProjectVisual type={project.visual} />
+              <span class="project-number" aria-hidden="true">
+                /{project.number}
+              </span>
               <span class="project-open">
                 <Icon name="arrow" />
               </span>
@@ -446,6 +500,8 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
       </div>
     </section>
 
+    <BuildApproach />
+
     <section class="section wrap" id="about" aria-labelledby="about-title">
       <div class="about-grid">
         <div class="about-copy" data-reveal>
@@ -622,9 +678,18 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
       <a href="#top">Back to top ↑</a>
     </div>
   </footer>
+  <a class="floating-top" href="#top" aria-label="Back to top">
+    <span>↑</span>
+    <svg viewBox="0 0 44 44" aria-hidden="true">
+      <circle cx="22" cy="22" r="19" />
+    </svg>
+  </a>
   <dialog id="project-dialog" class="project-dialog">
     <div class="dialog-head">
       <span class="mini-label">PROJECT NOTES</span>
+      <button class="share-project" data-copy-project-link>
+        <Icon name="copy" size={15} /> Copy project link
+      </button>
       <button data-close-dialog aria-label="Close project details">
         <Icon name="close" />
       </button>

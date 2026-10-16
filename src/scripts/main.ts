@@ -61,6 +61,13 @@ syncTheme();
 const motionButton = $("button[data-motion]");
 function syncMotion() {
   const off = shouldReduce();
+  if (off) {
+    document.getAnimations().forEach((animation) => animation.cancel());
+    $$("[data-reveal], [data-approach-panel], .project").forEach((el) => {
+      el.style.opacity = "1";
+      el.style.transform = "none";
+    });
+  }
   if (motionButton) {
     motionButton.textContent = `Motion: ${off ? "off" : "on"}`;
     motionButton.setAttribute("aria-pressed", String(off));
@@ -92,10 +99,17 @@ if (!shouldReduce()) {
         animate(
           element,
           {
-            opacity: [0.55, 1],
-            transform: ["translateY(18px)", "translateY(0)"],
+            opacity: [0.35, 1],
+            transform: ["translateY(26px)", "translateY(0)"],
           },
-          { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+          {
+            duration: 0.8,
+            delay: Math.min(
+              [...element.parentElement!.children].indexOf(element) * 0.045,
+              0.2,
+            ),
+            ease: [0.22, 1, 0.36, 1],
+          },
         );
     },
     { margin: "0px 0px -25px 0px" },
@@ -105,7 +119,86 @@ const progress = $(".reading-progress");
 if (progress)
   scroll((p) => {
     progress.style.transform = `scaleX(${p})`;
+    root.style.setProperty("--page-progress", String(p));
+    $(".floating-top")?.classList.toggle("is-visible", window.scrollY > 700);
   });
+
+// Pointer effects are small, desktop-only enhancements; touch scrolling stays native.
+const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+$$("[data-spotlight], .hero-profile").forEach((surface) => {
+  surface.addEventListener("pointermove", (event) => {
+    if (shouldReduce() || !finePointer.matches) return;
+    const bounds = surface.getBoundingClientRect();
+    const x = event.clientX - bounds.left;
+    const y = event.clientY - bounds.top;
+    surface.style.setProperty("--spot-x", `${x}px`);
+    surface.style.setProperty("--spot-y", `${y}px`);
+    surface.style.setProperty(
+      "--portrait-x",
+      `${(x / bounds.width - 0.5) * 9}px`,
+    );
+    surface.style.setProperty(
+      "--portrait-y",
+      `${(y / bounds.height - 0.5) * 6}px`,
+    );
+  });
+  surface.addEventListener("pointerleave", () => {
+    surface.style.setProperty("--portrait-x", "0px");
+    surface.style.setProperty("--portrait-y", "0px");
+  });
+});
+
+const approachTabs = $$<HTMLButtonElement>("[data-approach-tab]");
+const approachPanels = $$("[data-approach-panel]");
+function selectApproach(index: number, moveFocus = false) {
+  approachTabs.forEach((tab, i) => {
+    tab.setAttribute("aria-selected", String(i === index));
+    tab.tabIndex = i === index ? 0 : -1;
+  });
+  approachPanels.forEach((panel, i) => {
+    panel.hidden = i !== index;
+  });
+  if (moveFocus) approachTabs[index]?.focus();
+  const panel = approachPanels[index];
+  if (panel && !shouldReduce())
+    animate(
+      panel,
+      { opacity: [0.4, 1], transform: ["translateY(8px)", "none"] },
+      { duration: 0.35 },
+    );
+}
+if (approachTabs.length) {
+  $(".approach-tabs")?.setAttribute("role", "tablist");
+  approachTabs.forEach((tab, i) => {
+    tab.setAttribute("role", "tab");
+    approachPanels[i]?.setAttribute("role", "tabpanel");
+    approachPanels[i]?.setAttribute("tabindex", "0");
+    tab.addEventListener("click", () => selectApproach(i));
+    tab.addEventListener("keydown", (event) => {
+      const keys = [
+        "ArrowRight",
+        "ArrowLeft",
+        "ArrowDown",
+        "ArrowUp",
+        "Home",
+        "End",
+      ];
+      if (!keys.includes(event.key)) return;
+      event.preventDefault();
+      const next =
+        event.key === "Home"
+          ? 0
+          : event.key === "End"
+            ? approachTabs.length - 1
+            : (i +
+                (["ArrowRight", "ArrowDown"].includes(event.key) ? 1 : -1) +
+                approachTabs.length) %
+              approachTabs.length;
+      selectApproach(next, true);
+    });
+  });
+  selectApproach(0);
+}
 
 const nav = $("#navigation");
 const menu = $(".menu-toggle");
@@ -168,7 +261,15 @@ $$("[data-project-filter]").forEach((button) =>
     $$(".project[data-category]").forEach((card) => {
       const show = category === "all" || card.dataset.category === category;
       card.hidden = !show;
-      if (show) count++;
+      if (show) {
+        if (!shouldReduce())
+          animate(
+            card,
+            { opacity: [0.3, 1], transform: ["translateY(12px)", "none"] },
+            { duration: 0.45, delay: count * 0.05 },
+          );
+        count++;
+      }
     });
     const countEl = $("[data-project-count]");
     if (countEl) countEl.textContent = String(count);
@@ -217,42 +318,68 @@ function textElement<K extends keyof HTMLElementTagNameMap>(
   return el;
 }
 const projectDialog = $<HTMLDialogElement>("#project-dialog");
+let selectedProject: string | undefined;
+function openProject(id: string | undefined) {
+  const project = projects.find((p) => p.id === id);
+  const target = $("#project-detail");
+  if (!project || !target || !projectDialog) return;
+  const body = document.createElement("div");
+  body.className = "project-detail-body";
+  body.append(
+    textElement("span", project.status, "eyebrow"),
+    textElement("h2", project.name),
+    textElement("p", project.summary),
+  );
+  body.append(
+    textElement("h3", "The problem"),
+    textElement("p", project.problem),
+    textElement(
+      "h3",
+      project.id === "crm" ? "What I’m building" : "What I built",
+    ),
+  );
+  const list = document.createElement("ul");
+  project.built.forEach((line) => list.append(textElement("li", line)));
+  body.append(
+    list,
+    textElement("h3", "What I learned"),
+    textElement("p", project.learned),
+  );
+  const tags = document.createElement("ul");
+  tags.className = "tags";
+  project.tags.forEach((tag) => tags.append(textElement("li", tag)));
+  body.append(tags, textElement("p", project.note, "project-detail-note"));
+  target.replaceChildren(body);
+  projectDialog.setAttribute("aria-label", project.name);
+  selectedProject = project.id;
+  const url = new URL(window.location.href);
+  url.searchParams.set("project", project.id);
+  history.replaceState(null, "", url);
+  projectDialog.showModal();
+}
 $$("[data-project-open]").forEach((button) =>
-  button.addEventListener("click", () => {
-    const project = projects.find((p) => p.id === button.dataset.projectOpen);
-    const target = $("#project-detail");
-    if (!project || !target || !projectDialog) return;
-    const body = document.createElement("div");
-    body.className = "project-detail-body";
-    body.append(
-      textElement("span", project.status, "eyebrow"),
-      textElement("h2", project.name),
-      textElement("p", project.summary),
-    );
-    body.append(
-      textElement("h3", "The problem"),
-      textElement("p", project.problem),
-      textElement(
-        "h3",
-        project.id === "crm" ? "What I’m building" : "What I built",
-      ),
-    );
-    const list = document.createElement("ul");
-    project.built.forEach((line) => list.append(textElement("li", line)));
-    body.append(
-      list,
-      textElement("h3", "What I learned"),
-      textElement("p", project.learned),
-    );
-    const tags = document.createElement("ul");
-    tags.className = "tags";
-    project.tags.forEach((tag) => tags.append(textElement("li", tag)));
-    body.append(tags, textElement("p", project.note, "project-detail-note"));
-    target.replaceChildren(body);
-    projectDialog.setAttribute("aria-label", project.name);
-    projectDialog.showModal();
-  }),
+  button.addEventListener("click", () =>
+    openProject(button.dataset.projectOpen),
+  ),
 );
+projectDialog?.addEventListener("close", () => {
+  const url = new URL(window.location.href);
+  url.searchParams.delete("project");
+  history.replaceState(null, "", url);
+  selectedProject = undefined;
+});
+$("[data-copy-project-link]")?.addEventListener("click", () => {
+  if (!selectedProject) return;
+  const url = new URL(window.location.href);
+  url.searchParams.set("project", selectedProject);
+  url.hash = "work";
+  void copy(
+    url.href,
+    "Project link copied. It opens these project notes directly.",
+  );
+});
+const linkedProject = new URL(window.location.href).searchParams.get("project");
+if (linkedProject) openProject(linkedProject);
 
 const scenario = $<HTMLSelectElement>("#scenario");
 const run = $<HTMLButtonElement>("#run-workflow");
@@ -321,6 +448,7 @@ const commands: Command[] = [
   ...[
     ["Selected work", "work"],
     ["Automation lab", "playground"],
+    ["How I approach a build", "approach"],
     ["Experience at PHYTEC", "experience"],
     ["About Bhargav", "about"],
     ["Skills and tools", "skills"],

@@ -29,17 +29,21 @@ The production website is generated in `dist/`. Astro's `base` is `/portfolio_si
 - `src/pages/index.astro`: homepage copy, layout and milestones. Experience and skill levels are rendered from the shared profile.
 - `profile.skillGroups`: separates work focus, hands-on skills, project experience and current learning. JavaScript is explicitly learning; Java remains basic.
 - `src/styles/global.css`: colours, responsive layout and motion.
+- `src/styles/experience.css`: presentation refinements, portrait composition and responsive interactive sections.
+- `src/components/BuildApproach.astro`: the four-step, keyboard-accessible build-approach explorer.
 - `public/assets/`: anime portrait, social preview and downloadable CVs.
 
 ## Features
 
-- A restrained navy-and-blue design with a friendly smiling anime portrait.
-- Five filterable projects with keyboard-accessible case-study dialogs.
+- An editorial navy-and-blue design with serif accents, a friendly smiling anime portrait, floating tool cards and subtle pointer-responsive details.
+- Five filterable projects with animated transitions and keyboard-accessible case-study dialogs. Each project has a copyable direct link using `?project=news` (or the matching project ID).
+- A four-step build-approach explorer with arrow-key, Home and End navigation. Without JavaScript, all four explanations remain readable.
 - An interactive enquiry-to-CRM simulation with valid, missing-email and duplicate scenarios. It runs locally and never connects to PHYTEC or submits visitor data. Duplicate handling illustrates a possible extension, not a claim about a deployed workflow.
 - A 30-second recruiter overview, copyable introduction and PDF/Word CV downloads.
 - A searchable quick menu with Ctrl/Cmd K, keyboard selection and native modal focus containment.
 - Persistent light/dark themes and a motion preference that respects the operating system's reduced-motion setting.
 - A smiling anime portrait, scroll entrances, animated workflow connections, tracking illustrations and subtle ambient motion.
+- A floating back-to-top button with reading progress, plus a scroll cue and active navigation indicators.
 - Expandable learning notes and certificates.
 - Canonical URLs, absolute social preview URLs, person schema, sitemap and robots file.
 
