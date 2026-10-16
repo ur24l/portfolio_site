@@ -1,0 +1,710 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import ProjectVisual from "../components/ProjectVisual.astro";
+import profile from "../data/profile.json";
+import { projects, notes } from "../data/projects";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const asset = (file: string) => `${base}/assets/${file}`;
+const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
+---
+
+<Layout>
+  <div class="reading-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="Bhargav Sai Bhartu home">
+        <span class="brand-mark">
+          B<span>.</span>
+        </span>
+        <span>
+          Bhargav Sai Bhartu<small>Junior Software Developer</small>
+        </span>
+      </a>
+      <nav id="navigation" aria-label="Main navigation">
+        <a href="#work">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#about">About</a>
+      </nav>
+      <div class="header-tools">
+        <button
+          class="tool search-open"
+          data-command-open
+          aria-label="Open quick menu"
+        >
+          <Icon name="search" size={18} />
+        </button>
+        <button class="tool" data-theme aria-label="Switch to dark theme">
+          <Icon name="moon" size={18} />
+        </button>
+        <a class="header-resume" href={`${base}/resume/`}>
+          Résumé <Icon name="arrow" size={15} />
+        </a>
+        <button
+          class="tool menu-toggle"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="navigation"
+        >
+          <Icon name="menu" />
+        </button>
+      </div>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero wrap" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="role-badge" data-reveal>
+          <span class="status-dot"></span> Junior Software Developer · PHYTEC
+          India
+        </p>
+        <h1 id="hero-title" aria-label={profile.name} data-reveal>
+          Bhargav Sai
+          <br />
+          <span>Bhartu.</span>
+        </h1>
+        <p class="hero-role" data-reveal>
+          Odoo development & workflow automation
+        </p>
+        <p class="hero-description" data-reveal>
+          I work on Odoo and build n8n automations that help marketing capture
+          leads and sales teams manage enquiries. I’m growing my skills in
+          JavaScript and AI.
+        </p>
+        <div class="hero-actions" data-reveal>
+          <a class="button button-dark" href="#work">
+            View my projects <Icon name="down" size={17} />
+          </a>
+          <a class="button button-outline" href={cv} download>
+            <Icon name="file" size={17} /> Download résumé
+          </a>
+        </div>
+        <div class="hero-links" data-reveal>
+          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+            LinkedIn <Icon name="arrow" size={14} />
+          </a>
+          <a href={profile.github} target="_blank" rel="noopener noreferrer">
+            GitHub <Icon name="arrow" size={14} />
+          </a>
+          <button data-recruiter-open>
+            Quick introduction <Icon name="arrow" size={14} />
+          </button>
+        </div>
+      </div>
+      <div class="hero-profile" data-reveal>
+        <div class="portrait-stage">
+          <div class="portrait-orbit" aria-hidden="true"></div>
+          <span class="portrait-caption">
+            A LITTLE CURIOSITY GOES A LONG WAY.
+          </span>
+          <img
+            class="hero-portrait"
+            src={asset("bhargav-smile.webp")}
+            alt="Friendly smiling anime portrait of Bhargav Sai Bhartu"
+            width="900"
+            height="1193"
+            fetchpriority="high"
+          />
+          <div class="portrait-signature">
+            <span>Bhargav</span>
+            <small>Always learning. Always building.</small>
+          </div>
+        </div>
+        <div class="profile-location">
+          <span>
+            <Icon name="location" size={15} />
+            Visakhapatnam, India
+          </span>
+          <span>Illustrated portrait</span>
+        </div>
+      </div>
+    </section>
+    <div class="focus-strip">
+      <div class="wrap">
+        <p>WHAT I WORK WITH</p>
+        <span>Odoo CRM</span>
+        <span>n8n automation</span>
+        <span>Python</span>
+        <span>MySQL</span>
+        <span class="learning-chip">
+          <span class="status-dot"></span>Learning AI
+        </span>
+      </div>
+    </div>
+
+    <section class="section wrap" id="work" aria-labelledby="work-title">
+      <div class="section-top" data-reveal>
+        <div>
+          <p class="eyebrow">SELECTED PROJECTS</p>
+          <h2 id="work-title">
+            Practical work.
+            <br />
+            <span>Real learning.</span>
+          </h2>
+        </div>
+        <p class="section-description">
+          A closer look at the workflows and applications I’ve worked on, with
+          the problem, approach and lessons behind each one.
+        </p>
+      </div>
+      <div class="filter-row">
+        <div class="filters" role="group" aria-label="Filter projects">
+          {["All work", "Automation", "Full-stack", "Data & vision"].map(
+            (label, i) => (
+              <button
+                class:list={["filter", { "is-active": i === 0 }]}
+                data-project-filter={i === 0 ? "all" : label}
+                aria-pressed={i === 0 ? "true" : "false"}
+              >
+                {label}
+              </button>
+            ),
+          )}
+        </div>
+        <span class="project-count" aria-live="polite">
+          <span data-project-count>5</span> projects
+        </span>
+      </div>
+      <div class="projects-grid">
+        {projects.map((project) => (
+          <article
+            class:list={["project", { "project-wide": project.id === "news" }]}
+            data-category={project.category}
+            data-reveal
+          >
+            <button
+              class="project-preview"
+              data-project-open={project.id}
+              aria-label={`Read about ${project.name}`}
+            >
+              <ProjectVisual type={project.visual} />
+              <span class="project-open">
+                <Icon name="arrow" />
+              </span>
+            </button>
+            <div class="project-info">
+              <div class="project-kicker">
+                <span>{project.category}</span>
+                <span
+                  class:list={[
+                    "project-status",
+                    { "in-progress": project.id === "crm" },
+                  ]}
+                >
+                  {project.status}
+                </span>
+              </div>
+              <h3>
+                <button class="project-title" data-project-open={project.id}>
+                  {project.name}
+                  <Icon name="arrow" size={19} />
+                </button>
+              </h3>
+              <p>{project.summary}</p>
+              <ul class="tags">
+                {project.tags.map((tag) => (
+                  <li>{tag}</li>
+                ))}
+              </ul>
+              <button
+                class="text-link case-link"
+                data-project-open={project.id}
+              >
+                Read project notes <Icon name="chevron" size={15} />
+              </button>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="section-bottom">
+        <p>Explore more of my development work.</p>
+        <a
+          class="text-link"
+          href={profile.github}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Visit my GitHub <Icon name="arrow" size={16} />
+        </a>
+      </div>
+    </section>
+
+    <section
+      class="experience-section"
+      id="experience"
+      aria-labelledby="experience-title"
+    >
+      <div class="wrap">
+        <div class="section-top" data-reveal>
+          <div>
+            <p class="eyebrow">WORK EXPERIENCE</p>
+            <h2 id="experience-title">
+              Building experience
+              <br />
+              <span>where it matters.</span>
+            </h2>
+          </div>
+          <p class="section-description">
+            I’m early in my career and work closely with the teams who use the
+            tools I help build.
+          </p>
+        </div>
+        <div class="experience-list">
+          {profile.experience.map((job, i) => (
+            <article class="experience" data-reveal>
+              <div class="experience-meta">
+                <span class:list={["employment-label", { current: i === 0 }]}>
+                  {i === 0 ? "CURRENT ROLE" : "INTERNSHIP"}
+                </span>
+                <p>{job.dates}</p>
+                <small>
+                  {i === 0 ? "Visakhapatnam · Full-time" : "Remote"}
+                </small>
+              </div>
+              <div class="experience-body">
+                <div class="experience-title">
+                  <div>
+                    <h3>{job.title}</h3>
+                    <p>{i === 0 ? "PHYTEC India" : "Superport-IT"}</p>
+                  </div>
+                  <span class="company-monogram" aria-hidden="true">
+                    {i === 0 ? "P" : "S"}
+                  </span>
+                </div>
+                <ul class="experience-points">
+                  {job.bullets.map((bullet) => (
+                    <li>{bullet}</li>
+                  ))}
+                </ul>
+                {i === 0 && (
+                  <div class="current-build">
+                    <Icon name="flow" size={21} />
+                    <div>
+                      <b>Current integration · in progress</b>
+                      <p>
+                        Website enquiry → data checks → Odoo CRM → sales
+                        notification
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="skills" aria-labelledby="skills-title">
+      <div class="section-top" data-reveal>
+        <div>
+          <p class="eyebrow">SKILLS & DEVELOPMENT</p>
+          <h2 id="skills-title">
+            A clear view of
+            <br />
+            <span>where I am today.</span>
+          </h2>
+        </div>
+        <p class="section-description">
+          I separate hands-on experience from skills I’m still learning. I’m
+          happy to learn a new tool when a project needs it.
+        </p>
+      </div>
+      <div class="skill-cards">
+        {profile.skillGroups.map((group, i) => (
+          <article class="skill-card" data-reveal>
+            <span class="skill-index">0{i + 1}</span>
+            <h3>{group.title}</h3>
+            <p>{group.note}</p>
+            <ul>
+              {group.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+      <div class="learning-focus" data-reveal>
+        <span class="learning-icon">
+          <Icon name="spark" size={23} />
+        </span>
+        <div>
+          <h3>My current learning focus</h3>
+          <p>
+            Stronger JavaScript fundamentals, practical AI workflows, LLMs and
+            AI agents. I’m exploring how these can support useful business
+            automation.
+          </p>
+        </div>
+        <span class="learning-pill">IN PROGRESS</span>
+      </div>
+    </section>
+
+    <section class="lab-section" id="playground" aria-labelledby="lab-title">
+      <div class="wrap">
+        <div class="lab-intro">
+          <div>
+            <p class="eyebrow">INTERACTIVE WORKFLOW</p>
+            <h2 id="lab-title">
+              An enquiry’s journey
+              <br />
+              into the CRM.
+            </h2>
+          </div>
+          <p>
+            Try an example of the process I’m working on. This demonstration
+            uses sample data and stays entirely in your browser.
+          </p>
+        </div>
+        <div class="workflow-lab" data-reveal>
+          <div class="lab-toolbar">
+            <span>
+              <i class="status-dot"></i> enquiry-to-crm.workflow
+            </span>
+            <span class="demo-label">INTERACTIVE DEMO · SAMPLE DATA</span>
+          </div>
+          <div class="lab-main">
+            <div class="lab-controls">
+              <span class="mini-label">01 / CHOOSE AN ENQUIRY</span>
+              <label for="scenario">Try a scenario</label>
+              <select id="scenario">
+                <option value="valid">A complete enquiry</option>
+                <option value="invalid">Missing email address</option>
+                <option value="duplicate">An existing enquiry</option>
+              </select>
+              <div class="sample-input">
+                <span>
+                  name <b>Asha Rao</b>
+                </span>
+                <span>
+                  email <b data-sample-email>asha@example.com</b>
+                </span>
+                <span>
+                  interest <b>Product information</b>
+                </span>
+              </div>
+              <button class="button button-orange" id="run-workflow">
+                <Icon name="play" size={16} /> Run workflow
+              </button>
+              <p class="lab-footnote">
+                A local simulation. No data is submitted or saved.
+              </p>
+            </div>
+            <div class="lab-canvas">
+              <ol class="workflow-nodes">
+                <li data-node="0">
+                  <span class="node-icon">
+                    <Icon name="mail" />
+                  </span>
+                  <div>
+                    <small>TRIGGER</small>
+                    <b>Receive enquiry</b>
+                  </div>
+                  <span class="node-state">01</span>
+                </li>
+                <li data-node="1">
+                  <span class="node-icon">
+                    <Icon name="code" />
+                  </span>
+                  <div>
+                    <small>CHECK</small>
+                    <b>Clean & validate</b>
+                  </div>
+                  <span class="node-state">02</span>
+                </li>
+                <li data-node="2">
+                  <span class="node-icon">
+                    <Icon name="grid" />
+                  </span>
+                  <div>
+                    <small>CONNECT</small>
+                    <b>Create Odoo lead</b>
+                  </div>
+                  <span class="node-state">03</span>
+                </li>
+                <li data-node="3">
+                  <span class="node-icon">
+                    <Icon name="spark" />
+                  </span>
+                  <div>
+                    <small>NOTIFY</small>
+                    <b>Alert the sales team</b>
+                  </div>
+                  <span class="node-state">04</span>
+                </li>
+              </ol>
+              <div class="lab-result" role="status" aria-live="polite">
+                <span class="result-dot"></span>
+                <p id="workflow-result">
+                  Ready when you are. Choose a scenario and press run.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="about" aria-labelledby="about-title">
+      <div class="about-grid">
+        <div class="about-copy" data-reveal>
+          <p class="eyebrow">ABOUT ME</p>
+          <h2 id="about-title">
+            Curious about technology.
+            <br />
+            <span>Focused on useful work.</span>
+          </h2>
+          <p>
+            I’m Bhargav, a junior software developer based in Visakhapatnam. I
+            enjoy understanding a team’s everyday work and finding small ways to
+            improve it with software.
+          </p>
+          <p>
+            My background includes Python, MySQL, n8n automation and MERN stack
+            projects. I’m now developing stronger JavaScript and AI skills
+            alongside my work with Odoo.
+          </p>
+          <p>
+            I learn through practical projects, asking questions and improving
+            what I build.
+          </p>
+          <div class="about-contact">
+            <a class="text-link" href={`mailto:${profile.email}`}>
+              Let’s connect <Icon name="arrow" size={17} />
+            </a>
+            <span>Telugu · English</span>
+          </div>
+        </div>
+        <aside class="education-panel" data-reveal>
+          <h3>Education & milestones</h3>
+          {profile.education.map((item) => (
+            <div class="education-item">
+              <span>{item.dates}</span>
+              <h4>{item.degree}</h4>
+              <p>{item.school}</p>
+              <small>{item.detail}</small>
+            </div>
+          ))}
+          <div class="milestone">
+            <Icon name="spark" size={18} />
+            <div>
+              <b>1st place · HACKAP Hackathon</b>
+              <span>Andhra Pradesh · 2023</span>
+            </div>
+          </div>
+          <div class="milestone">
+            <Icon name="code" size={18} />
+            <div>
+              <b>LeRobot Worldwide Hackathon</b>
+              <span>Participant · Hugging Face · 2025</span>
+            </div>
+          </div>
+          <details class="more-milestones">
+            <summary>
+              Certificates & community <span>+</span>
+            </summary>
+            <ul>
+              <li>Full-Stack Development · Wipro</li>
+              <li>Programming in Java · NPTEL</li>
+              <li>Ethical Hacking Workshop · JNTU Kakinada</li>
+              <li>NSS Coordinator · Community welfare events</li>
+            </ul>
+          </details>
+        </aside>
+      </div>
+    </section>
+
+    <section class="notes-section" id="notes" aria-labelledby="notes-title">
+      <div class="wrap">
+        <div class="section-top" data-reveal>
+          <div>
+            <p class="eyebrow">LEARNING NOTES</p>
+            <h2 id="notes-title">
+              Small lessons
+              <br />
+              <span>worth keeping.</span>
+            </h2>
+          </div>
+          <p class="section-description">
+            A few practical things I’ve learned while working with APIs, Odoo
+            and AI workflows.
+          </p>
+        </div>
+        <div class="notes-grid">
+          {notes.map((note) => (
+            <details class="note" data-reveal>
+              <summary>
+                <span class="note-topic">{note.topic}</span>
+                <h3>{note.title}</h3>
+                <span class="note-expand">
+                  Read note <span>+</span>
+                </span>
+              </summary>
+              <p>{note.text}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="section wrap contact-section"
+      id="contact"
+      aria-labelledby="contact-title"
+    >
+      <div data-reveal>
+        <p class="eyebrow">GET IN TOUCH</p>
+        <h2 id="contact-title">
+          Let’s talk about
+          <br />
+          <span>what you’re building.</span>
+        </h2>
+        <p class="contact-description">
+          For developer opportunities, project conversations or a useful
+          exchange of ideas, I’d be happy to connect.
+        </p>
+        <div class="contact-email">
+          <a href={`mailto:${profile.email}`}>
+            {profile.email}
+            <Icon name="arrow" size={23} />
+          </a>
+          <button data-copy-email aria-label="Copy email address">
+            <Icon name="copy" size={19} />
+          </button>
+        </div>
+        <div class="contact-links">
+          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+            LinkedIn <Icon name="arrow" size={16} />
+          </a>
+          <a href={profile.github} target="_blank" rel="noopener noreferrer">
+            GitHub <Icon name="arrow" size={16} />
+          </a>
+          <a href={`tel:${profile.phone.replace(/\s/g, "")}`}>
+            Call me <Icon name="arrow" size={16} />
+          </a>
+        </div>
+      </div>
+      <aside class="resume-card" data-reveal>
+        <Icon name="file" size={27} />
+        <h3>
+          My experience,
+          <br />
+          in one page.
+        </h3>
+        <p>
+          A straightforward résumé covering my work, projects and current
+          skills.
+        </p>
+        <a class="button button-dark" href={cv} download>
+          Download résumé <Icon name="down" size={17} />
+        </a>
+        <div>
+          <a href={`${base}/resume/`}>Read online</a>
+          <a href={asset("Bhargav-Sai-Bhartu-Resume.docx")} download>
+            Word version
+          </a>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <footer class="site-footer wrap">
+    <span>
+      © {new Date().getFullYear()} {profile.name}
+    </span>
+    <div>
+      <button data-motion aria-pressed="false">
+        Motion: on
+      </button>
+      <button data-command-open>
+        Quick menu <kbd>⌘ K</kbd>
+      </button>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+  <dialog id="project-dialog" class="project-dialog">
+    <div class="dialog-head">
+      <span class="mini-label">PROJECT NOTES</span>
+      <button data-close-dialog aria-label="Close project details">
+        <Icon name="close" />
+      </button>
+    </div>
+    <div id="project-detail"></div>
+  </dialog>
+  <dialog
+    id="recruiter-dialog"
+    class="recruiter-dialog"
+    aria-labelledby="recruiter-title"
+  >
+    <div class="dialog-head">
+      <span class="mini-label">THE 30-SECOND OVERVIEW</span>
+      <button data-close-dialog aria-label="Close overview">
+        <Icon name="close" />
+      </button>
+    </div>
+    <p class="eyebrow">JUNIOR SOFTWARE DEVELOPER</p>
+    <h2 id="recruiter-title">
+      Hi, I'm Bhargav<span class="accent">.</span>
+    </h2>
+    <p>{profile.summary}</p>
+    <dl class="recruiter-facts">
+      <div>
+        <dt>Current focus</dt>
+        <dd>Odoo development · n8n automation · Python · MySQL</dd>
+      </div>
+      <div>
+        <dt>Previous experience</dt>
+        <dd>Full-stack intern · Superport-IT</dd>
+      </div>
+      <div>
+        <dt>Project highlight</dt>
+        <dd>AI news briefing with structured LLM output and fallback models</dd>
+      </div>
+      <div>
+        <dt>Currently learning</dt>
+        <dd>JavaScript · AI workflows · LLMs & prompting</dd>
+      </div>
+    </dl>
+    <div class="dialog-actions">
+      <a class="button button-dark" href={cv} download>
+        Download CV <Icon name="down" size={17} />
+      </a>
+      <button class="button button-outline" data-copy-summary>
+        <Icon name="copy" size={17} /> Copy summary
+      </button>
+    </div>
+    <a
+      class="text-link"
+      href={asset("Bhargav-Sai-Bhartu-Resume.docx")}
+      download
+    >
+      Prefer Word? Download .docx <Icon name="arrow" size={15} />
+    </a>
+  </dialog>
+  <dialog id="command-dialog" class="command-dialog" aria-label="Quick menu">
+    <div class="command-search">
+      <Icon name="search" />
+      <label class="sr-only" for="command-input">
+        Search sections and actions
+      </label>
+      <input
+        id="command-input"
+        type="search"
+        placeholder="Where would you like to go?"
+        autocomplete="off"
+      />
+      <button data-close-dialog aria-label="Close quick menu">
+        <kbd>Esc</kbd>
+      </button>
+    </div>
+    <div id="command-results" class="command-results"></div>
+    <p class="command-help">
+      ↑ ↓ to move <span>↵ to select</span>
+      <span>esc to close</span>
+    </p>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script>
+    import "../scripts/main";
+  </script>
+</Layout>

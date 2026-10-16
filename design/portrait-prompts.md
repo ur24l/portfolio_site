@@ -1,0 +1,11 @@
+# Current portrait direction
+
+Created with the built-in image generation tool. The chosen transparent portrait is exported as `public/assets/bhargav-smile.webp` (900 × 1193). The social card is `public/assets/og-image.jpg` (1200 × 630).
+
+## Portrait prompt
+
+Edit target: the reference anime portrait. Create a warmer professional portfolio version of this SAME young Indian man. The key correction is his expression: a clear, natural friendly SMILE with gently lifted mouth corners, a small glimpse of upper teeth, relaxed cheeks and warm smiling eyes. Have his gaze meet the viewer, with his head almost front-facing and a slight natural tilt. He should feel approachable, cheerful and quietly confident, NOT stern or serious. Keep his recognizable rounded face, medium warm brown skin, curly black hair, subtle moustache, charcoal blazer and white shirt. Keep hand-drawn Japanese anime / Studio Ghibli-inspired linework, soft cel shading and painterly highlights, more charming and expressive than photorealistic. Upper-body portrait from complete hair to hips, relaxed shoulders and natural hands-in-pockets pose. Center the figure, no cropped hair or shoulders. Clean transparent alpha background. No text, no watermark, no background, no added objects. Make the smile obvious but believable, not exaggerated or a huge grin.
+
+## Social card prompt
+
+Use case: ads-marketing. Asset: a polished professional personal portfolio social-sharing card, landscape 1200x630 composition. Use the supplied smiling anime man as the portrait reference, preserving his friendly smile, curly hair, brown skin, charcoal blazer and white shirt. Keep the portrait as an unmistakable hand-drawn anime illustration on the right third. White/off-white background, subtle pale slate-blue circle behind portrait, restrained navy typography with medium-blue accent. Spacious minimal editorial composition, no decorative stickers, no grids, no extra icons. Left side text must be exact and clearly readable: small top line 'JUNIOR SOFTWARE DEVELOPER'; large bold name on two lines 'Bhargav Sai' and 'Bhartu.'; beneath it 'Odoo development & n8n automation'; small bottom line 'PHYTEC India · Visakhapatnam'; final small line 'Learning JavaScript & AI'. No other text, no watermark, no extra claims.

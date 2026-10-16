@@ -1,56 +1,66 @@
-# Bhargav Sai's Portfolio
+# Bhargav Sai Bhartu portfolio
 
-This is the personal portfolio of Bhargav Sai Bhartu, a junior software developer at PHYTEC India learning Odoo, n8n and AI. It introduces his background, skills, work experience, projects, education, achievements, and contact details.
-
-The site is designed as a simple one-page website with a modern, interactive look. It is useful for sharing his work with recruiters, employers, and collaborators.
-
-## What is included
-
-- An introduction and career summary
-- Technical skills, including full-stack development, cloud, computer vision, IoT, and Odoo
-- Work experience at Superport-IT
-- Featured projects such as people counting, a cooking robot app, and healthcare analytics
-- Education, achievements, and contact links
-
-## Features
-
-- Learning log with topic filters (edit the `.log-item` blocks in `index.html` to add your own notes)
-- Honest skill levels: using at work, comfortable with, learning now, have tried
-- Motion: word-by-word headline, aurora background, magnetic buttons, 3D card tilt, animated project border, scroll-driven effects (Chrome, Edge, Safari 26+), circular theme switch
-- Light and dark themes (follows the device, remembers your choice)
-- Quick menu: press Ctrl K (or Cmd K on Mac) to jump to any section, copy the email or open links
-- ATS-friendly one-page CV in PDF and Word (`assets/Bhargav-Sai-Bhartu-Resume.*`). Edit the content in `cv/build_cv.js`, then run `node cv/build_cv.js` and convert the .docx to PDF with LibreOffice or Word
-- Social share image (`assets/og-image.jpg`) for LinkedIn, WhatsApp and X previews
-- Animated workflow diagram, count-up stats and scroll reveals (all respect "reduce motion")
-- Works without JavaScript; fully responsive down to phone width
-
-## Built with
-
-- Semantic HTML in a single page (`index.html`)
-- Hand-written CSS with design tokens (`css/styles.css`)
-- A small, dependency-free script (`js/main.js`)
-- Fonts: Geist, Geist Mono and Instrument Serif from Google Fonts
-
-No framework, build step or package installation is needed.
-
-## Project structure
-
-```text
-index.html        All page content
-css/styles.css    Design tokens, layout, themes and print (CV) styles
-js/main.js        Theme, menu, quick menu, counters, copy email, CV print
-assets/           Portrait photos (WebP + JPG) and the social share image
-```
+A professional portfolio for a junior developer working with Odoo, n8n and AI at PHYTEC India. Built with Astro 7, TypeScript and Motion, with a static output for GitHub Pages.
 
 ## Run locally
 
-Open `index.html` in a browser, or serve the folder:
+Use Node.js 24 LTS (at least 22.22) and npm.
 
-```bash
-python3 -m http.server
+```sh
+npm ci
+npm run dev
 ```
 
-## Deploy
+Open the printed URL with `/portfolio_site/` appended. The homepage and resume also work as pre-rendered HTML without JavaScript. Filters, dialogs and the simulation are progressive enhancements.
 
-Push to GitHub and enable GitHub Pages for the branch, or drag the folder into Netlify or Vercel.
-After deploying, change `og:image` in `index.html` to the full URL (for example `https://<you>.github.io/portfolio_site/assets/og-image.jpg`) so link previews show the image.
+```sh
+npm run check
+npm test
+npm run build
+npm run preview
+```
+
+The production website is generated in `dist/`. Astro's `base` is `/portfolio_site` so assets and resume links work on the existing GitHub Pages address.
+
+## Update content
+
+- `src/data/profile.json`: professional summary, experience, CV projects, education and skills used by the resume page and document generator.
+- `src/data/projects.ts`: portfolio case studies and learning notes.
+- `src/pages/index.astro`: homepage copy, layout and milestones. Experience and skill levels are rendered from the shared profile.
+- `profile.skillGroups`: separates work focus, hands-on skills, project experience and current learning. JavaScript is explicitly learning; Java remains basic.
+- `src/styles/global.css`: colours, responsive layout and motion.
+- `public/assets/`: anime portrait, social preview and downloadable CVs.
+
+## Features
+
+- A restrained navy-and-blue design with a friendly smiling anime portrait.
+- Five filterable projects with keyboard-accessible case-study dialogs.
+- An interactive enquiry-to-CRM simulation with valid, missing-email and duplicate scenarios. It runs locally and never connects to PHYTEC or submits visitor data. Duplicate handling illustrates a possible extension, not a claim about a deployed workflow.
+- A 30-second recruiter overview, copyable introduction and PDF/Word CV downloads.
+- A searchable quick menu with Ctrl/Cmd K, keyboard selection and native modal focus containment.
+- Persistent light/dark themes and a motion preference that respects the operating system's reduced-motion setting.
+- A smiling anime portrait, scroll entrances, animated workflow connections, tracking illustrations and subtle ambient motion.
+- Expandable learning notes and certificates.
+- Canonical URLs, absolute social preview URLs, person schema, sitemap and robots file.
+
+Project visuals are labelled illustrative overviews. They are not screenshots or proof of production deployment. No metrics, testimonials or project repository links have been invented.
+
+## Rebuild the CV
+
+The PDF and Word downloads are one-page A4 documents with a single column, standard headings and selectable text. They contain no images, layout tables, text boxes or header/footer contact information. This is designed for straightforward ATS parsing; scoring depends on the specific job and ATS.
+
+Install `python-docx` in a Python environment, then:
+
+```sh
+python scripts/build_resume.py
+```
+
+Convert `public/assets/Bhargav-Sai-Bhartu-Resume.docx` to PDF with Word or LibreOffice, keeping the same filename. Visually inspect the PDF and confirm it still has one page after content edits. `scripts/requirements.txt` records the authoring dependency.
+
+## Deploy to the existing GitHub Pages site
+
+The repository includes `.github/workflows/deploy.yml`, using the official Astro action. In GitHub, choose **Settings → Pages → Source → GitHub Actions**. A push to `main` builds, checks and publishes the website. Pull requests run checks and build without deploying.
+
+The source alone cannot be served directly as the previous plain HTML version was; GitHub Pages must serve the built output. Node packages are locked in `package-lock.json` for repeatable installation.
+
+No backend, private API keys or paid services are required. Google Fonts is the only externally hosted visual dependency; system fonts provide a fallback.

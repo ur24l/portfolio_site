@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ur24l.github.io/portfolio_site/sitemap.xml

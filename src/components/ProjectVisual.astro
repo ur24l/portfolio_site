@@ -1,0 +1,145 @@
+---
+interface Props {
+  type: string;
+}
+const { type } = Astro.props;
+---
+
+<div class:list={["project-visual", `visual-${type}`]} aria-hidden="true">
+  {type === "news" && (
+    <>
+      <div class="visual-grid"></div>
+      <div class="orbit-label orbit-a">RSS →</div>
+      <div class="orbit-label orbit-b">JSON ✓</div>
+      <div class="news-window">
+        <div class="window-bar">
+          <span>
+            <i></i>
+            <i></i>
+            <i></i>
+          </span>
+          <small>morning-brief.email</small>
+        </div>
+        <div class="news-body">
+          <span class="mini-label">YOUR DAILY SIGNAL</span>
+          <div class="news-title">
+            Good morning.
+            <br />
+            Here's what matters.
+          </div>
+          <div class="news-date">
+            09:00 IST <span>8–12 selected stories</span>
+          </div>
+          <div class="news-story">
+            <b>9.0</b>
+            <div>
+              <strong>AI & large language models</strong>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <div class="news-story">
+            <b>8.0</b>
+            <div>
+              <strong>Chips & emerging technology</strong>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <div class="news-bottom">
+            4 feeds <i>→</i> LLM + fallback <i>→</i> 1 briefing
+          </div>
+        </div>
+      </div>
+      <span class="visual-caption">WORKFLOW OVERVIEW</span>
+    </>
+  )}
+  {type === "crm" && (
+    <>
+      <div class="visual-grid"></div>
+      <div class="crm-overview">
+        <div class="flow-mini">
+          <span>01</span>
+          <b>Website enquiry</b>
+          <small>Webhook receives the form</small>
+        </div>
+        <div class="flow-connector">
+          <i></i>
+        </div>
+        <div class="flow-mini flow-orange">
+          <span>02</span>
+          <b>n8n</b>
+          <small>Clean · validate · map</small>
+        </div>
+        <div class="flow-connector">
+          <i></i>
+        </div>
+        <div class="flow-mini">
+          <span>03</span>
+          <b>Odoo CRM</b>
+          <small>Create lead + notify sales</small>
+        </div>
+      </div>
+      <span class="visual-caption">WORKFLOW OVERVIEW · IN PROGRESS</span>
+    </>
+  )}
+  {type === "robot" && (
+    <>
+      <div class="recipe-orbit">
+        <span>REACT</span>
+        <span>NODE.JS</span>
+        <span>DYNAMODB</span>
+      </div>
+      <div class="robot-symbol">
+        <svg viewBox="0 0 180 160" fill="none">
+          <path
+            d="M35 65h110l-10 55H45L35 65Z"
+            stroke="currentColor"
+            stroke-width="3"
+          />
+          <path
+            d="M25 65h130M55 45c-15-12 15-18 0-32m35 32c-15-12 15-18 0-32m35 32c-15-12 15-18 0-32M57 132h66"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <span class="robot-label">Recipes. Meals. Robot status.</span>
+      <span class="visual-caption">APPLICATION OVERVIEW</span>
+    </>
+  )}
+  {type === "data" && (
+    <>
+      <div class="data-model">
+        <span>
+          patients <b>PK id</b>
+        </span>
+        <i>↙ &nbsp; ↘</i>
+        <div>
+          <span>appointments</span>
+          <span>billing</span>
+        </div>
+        <i>↓</i>
+        <span class="model-result">SQL reporting views</span>
+      </div>
+      <span class="visual-caption">DATA MODEL OVERVIEW</span>
+    </>
+  )}
+  {type === "vision" && (
+    <>
+      <div class="vision-grid"></div>
+      <div class="track-box track-one">
+        <span>person_01</span>
+      </div>
+      <div class="track-box track-two">
+        <span>person_02</span>
+      </div>
+      <div class="count-line">
+        <span>COUNTING LINE</span>
+      </div>
+      <span class="vision-caption">detect → track → count</span>
+      <span class="visual-caption">TRACKING ILLUSTRATION</span>
+    </>
+  )}
+</div>

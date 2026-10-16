@@ -1,0 +1,152 @@
+{
+  "name": "Bhargav Sai Bhartu",
+  "headline": "Junior Software Developer",
+  "contact": [
+    "Visakhapatnam, Andhra Pradesh, India",
+    "+91 93462 36509",
+    {
+      "text": "bhargavsaibhartu@gmail.com",
+      "link": "mailto:bhargavsaibhartu@gmail.com"
+    }
+  ],
+  "links": [
+    {
+      "label": "LinkedIn",
+      "text": "linkedin.com/in/bhargav-sai-bhartu",
+      "link": "https://www.linkedin.com/in/bhargav-sai-bhartu/"
+    },
+    {
+      "label": "GitHub",
+      "text": "github.com/ur24l",
+      "link": "https://github.com/ur24l"
+    }
+  ],
+  "summary": "Junior Software Developer at PHYTEC India supporting Odoo development and n8n automations for marketing and sales. Hands-on with Python, MySQL and workflow automation, with MERN stack project experience. Currently strengthening JavaScript fundamentals and learning AI workflows.",
+  "experience": [
+    {
+      "title": "Junior Software Developer",
+      "org": "PHYTEC India, Visakhapatnam",
+      "dates": "January 2026 - Present",
+      "bullets": [
+        "Support Odoo development and CRM setup for sales stages, lead pipelines, custom fields and reports.",
+        "Develop n8n automations to help marketing capture leads and sales teams manage enquiries.",
+        "Work on a website-to-Odoo integration using webhooks and REST APIs, with data checks and sales notifications."
+      ]
+    },
+    {
+      "title": "Full Stack Engineer Intern",
+      "org": "Superport-IT (Remote)",
+      "dates": "March 2025 - July 2025",
+      "bullets": [
+        "Contributed to the Sales_Pro CRM module with the product team, using React, Node.js, Express and MySQL.",
+        "Worked on API integration and responsive interfaces while gaining practical full-stack experience."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "AI Tech News Briefing System",
+      "tech": "n8n, Groq API, RSS",
+      "bullets": [
+        "Created a daily 9:00 AM IST briefing from 4 RSS feeds, with deduplication, structured LLM summaries and a fallback model."
+      ]
+    },
+    {
+      "name": "Akshaya Cooking Robot App",
+      "tech": "React, Node.js, DynamoDB",
+      "bullets": [
+        "Worked on a web app for recipes, meal planning and cooking robot status, gaining experience with APIs and DynamoDB."
+      ]
+    },
+    {
+      "name": "Healthcare Database and Analytics",
+      "tech": "SQL",
+      "bullets": [
+        "Designed related tables and reporting views for patient records, appointments and billing."
+      ]
+    },
+    {
+      "name": "Real-time People Counting",
+      "tech": "Python, OpenCV",
+      "bullets": [
+        "Built a video-processing project to detect, track and count people."
+      ]
+    }
+  ],
+  "skills": [
+    ["Work focus", "Odoo development, Odoo CRM, n8n, Webhooks, REST APIs"],
+    ["Hands-on", "Python, MySQL, Workflow Automation"],
+    [
+      "Project exposure",
+      "MERN stack, React, Node.js, Express, HTML, CSS, SQL, Git"
+    ],
+    [
+      "Learning",
+      "JavaScript (learning), AI workflows, LLMs and prompting; Java (basics)"
+    ]
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Technology (B.Tech), Information Technology",
+      "school": "Anil Neerukonda Institute of Technology and Sciences (ANITS), Visakhapatnam",
+      "dates": "2021 - 2024",
+      "detail": "CGPA: 7.77 / 10"
+    },
+    {
+      "degree": "Diploma, Mechanical Engineering",
+      "school": "Sai Ganapathi Polytechnic, Visakhapatnam",
+      "dates": "2016 - 2019",
+      "detail": "Percentage: 74%"
+    }
+  ],
+  "achievements": [
+    "1st place, HACKAP Hackathon (2023); participant, LeRobot Worldwide Hackathon (2025).",
+    "Full-Stack Development, Wipro; Programming in Java, NPTEL.",
+    "NSS Coordinator; Ethical Hacking Workshop, JNTU Kakinada."
+  ],
+  "email": "bhargavsaibhartu@gmail.com",
+  "phone": "+91 93462 36509",
+  "location": "Visakhapatnam, India",
+  "github": "https://github.com/ur24l",
+  "linkedin": "https://www.linkedin.com/in/bhargav-sai-bhartu/",
+  "skillGroups": [
+    {
+      "title": "Work focus",
+      "note": "Tools and tasks I work with at PHYTEC India.",
+      "items": [
+        "Odoo development",
+        "Odoo CRM",
+        "n8n automation",
+        "Webhooks & APIs"
+      ]
+    },
+    {
+      "title": "Hands-on skills",
+      "note": "Skills I use in practical work and projects.",
+      "items": ["Python", "MySQL", "Workflow automation"]
+    },
+    {
+      "title": "Project experience",
+      "note": "Technologies I have worked with while building projects.",
+      "items": [
+        "MERN stack",
+        "React",
+        "Node.js & Express",
+        "HTML & CSS",
+        "SQL",
+        "Git"
+      ]
+    },
+    {
+      "title": "Currently learning",
+      "note": "Building stronger fundamentals and exploring new ideas.",
+      "items": [
+        "JavaScript",
+        "AI workflows",
+        "LLMs & prompting",
+        "AI agents",
+        "Java basics"
+      ]
+    }
+  ]
+}

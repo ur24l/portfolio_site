@@ -1,0 +1,84 @@
+---
+import "../styles/global.css";
+import profile from "../data/profile.json";
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = "Bhargav Sai Bhartu — Junior Developer · Odoo, n8n & AI",
+  description = "Junior Software Developer at PHYTEC India. Explore my work in Odoo CRM, n8n automation, AI workflows and full-stack development.",
+} = Astro.props;
+const base = import.meta.env.BASE_URL;
+const asset = (name: string) => `${base}/assets/${name}`.replace(/\/+/g, "/");
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const og = new URL(asset("og-image.jpg"), Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={profile.name} />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#fcfcfd" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={og} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={og} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="icon" href={`${base}/favicon.svg`.replace(/\/+/g, "/")} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;450;500;550;600;650;700;750;800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      try {
+        const t = localStorage.getItem("portfolio-theme");
+        if (t === "dark" || t === "light")
+          document.documentElement.dataset.theme = t;
+        const m = localStorage.getItem("portfolio-motion");
+        if (m === "off") document.documentElement.dataset.motion = "off";
+      } catch {}
+    </script>
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: profile.name,
+        jobTitle: "Junior Software Developer",
+        url: new URL(base + "/", Astro.site).href,
+        image: og,
+        worksFor: { "@type": "Organization", name: "PHYTEC India" },
+        sameAs: [profile.github, profile.linkedin],
+        knowsAbout: [
+          "Odoo CRM",
+          "n8n",
+          "REST APIs",
+          "Python",
+          "MySQL",
+          "Workflow automation",
+        ],
+      })}
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <slot />
+  </body>
+</html>
