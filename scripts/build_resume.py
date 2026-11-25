@@ -551,8 +551,13 @@ def verify_single_page_pdf() -> None:
 
 
 if __name__ == "__main__":
+    import sys
+
     build_docx()
-    build_pdf()
-    verify_single_page_pdf()
     print(f"Generated: {OUT_DOCX}")
-    print(f"Generated: {OUT_PDF}")
+    # The PDF is printed from the /resume/ page so it matches the website (scripts/export_resume_pdf.ps1).
+    # The older ReportLab layout is still available on request:
+    if "--reportlab-pdf" in sys.argv:
+        build_pdf()
+        verify_single_page_pdf()
+        print(f"Generated: {OUT_PDF}")

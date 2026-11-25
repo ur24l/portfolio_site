@@ -22,23 +22,22 @@ npm run preview
 
 ## Project structure
 
-- `src/data/profile.json`: Verified professional summary, experience, resume projects, education, and skills shared by the website, `/resume/`, and resume generator.
-- `src/data/projects.ts`: Portfolio case studies ordered by strength for Python & AI developer roles.
-- `src/scripts/checkin.ts`: Deterministic face check-in pipeline simulation (`tests/checkin.test.mjs`).
-- `src/pages/index.astro`: Homepage with engineering systems overview, filterable projects, experience, skills, interactive pipeline demo, and resume download panel.
-- `src/pages/resume.astro`: Integrated online A4-proportioned resume page with print styles and PDF/DOCX download actions.
-- `src/styles/global.css` & `src/styles/experience.css`: Design system and responsive layout styles.
-- `public/assets/`: Typographic Open Graph preview (`og-image.jpg`) and downloadable single-page PDF and Word resumes.
+- `src/data/profile.json`: summary, experience, resume projects, skills, education, and contact settings. Shared by the homepage, `/resume/`, and the Word resume generator.
+- `src/data/projects.ts`: portfolio projects, ordered by relevance. The `featured` project is shown first in full.
+- `src/pages/index.astro`: homepage (intro, selected work, experience, skills, education, contact).
+- `src/pages/resume.astro`: the online resume. Its print styles are also the source of the PDF resume.
+- `src/pages/thanks.astro`: fallback page after a contact message.
+- `src/components/SiteHeader.astro`, `SiteFooter.astro`: shared header and footer.
+- `src/scripts/contact.ts`: sends the contact form without leaving the page.
+- `src/styles/site.css`: the whole design system (light by default, follows the device's dark mode).
+- `public/assets/`: social preview image (`og-image.jpg`) and the PDF and Word resumes.
 
-## Rebuild the Resume (PDF & DOCX)
+## Update the resume
 
-Both `public/assets/Bhargav-Sai-Bhartu-Resume.pdf` and `public/assets/Bhargav-Sai-Bhartu-Resume.docx` are generated directly from `src/data/profile.json` as single-page, single-column, ATS-safe A4 documents.
-
-Install dependencies from `scripts/requirements.txt` and run:
-
-```sh
-python scripts/build_resume.py
-```
+1. Edit `src/data/profile.json`.
+2. Word version: `python scripts/build_resume.py` (needs `scripts/requirements.txt`).
+3. PDF version (Windows): run `npm run build` and `npm run preview`, then `.\scripts\export_resume_pdf.ps1`.
+   This prints the `/resume/` page with Microsoft Edge, so the PDF matches the website. Check that it is still one page.
 
 ## Contact form & auto-reply setup
 

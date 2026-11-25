@@ -1,825 +1,528 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Icon from "../components/Icon.astro";
-import ProjectVisual from "../components/ProjectVisual.astro";
-import "../styles/experience.css";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
 import profile from "../data/profile.json";
 import { projects } from "../data/projects";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const asset = (file: string) => `${base}/assets/${file}`;
-const cvPdf = asset("Bhargav-Sai-Bhartu-Resume.pdf");
-const cvDocx = asset("Bhargav-Sai-Bhartu-Resume.docx");
+const cv = `${base}/assets/Bhargav-Sai-Bhartu-Resume.pdf`;
+const featured = projects.find((p) => p.featured)!;
+const others = projects.filter((p) => !p.featured);
+const endpoint =
+  profile.contactWebhookUrl || `https://formsubmit.co/ajax/${profile.email}`;
+const current = profile.experience[0];
+
+const glance = [
+  ["Role", current.title],
+  ["Company", current.org],
+  ["Location", profile.location],
+  ["Focus", "Computer vision, Python backends, workflow automation"],
+  ["Recent work", "Face Attendance AI, deployed on-premises"],
+  ["Education", "B.Tech, Information Technology (2024)"],
+];
+
+const numbers = [
+  ["91", "automated tests guarding the attendance system"],
+  ["4", "checks on every scan before attendance is recorded"],
+  ["On-prem", "deployment, with face data kept on the company network"],
+  ["1st", "place at the HACKAP Hackathon, 2023"],
+];
+
+const highlights = [
+  [
+    "Spoof resistant",
+    "Rejects printed photos and phone screens before any face is matched.",
+  ],
+  [
+    "Secure by default",
+    "Role-based access, short-lived tokens, login limits and safe password resets.",
+  ],
+  [
+    "Built to run",
+    "Docker deployment with migrations, daily backups and a full test suite.",
+  ],
+];
+
+const pipeline = [
+  ["Capture", "Kiosk camera or phone"],
+  ["Detect", "YuNet face detector"],
+  ["Check quality", "Blur, lighting and head pose"],
+  ["Liveness", "MiniFASNet anti-spoofing"],
+  ["Match", "SFace embedding and vector search"],
+];
+
+// Simple line icons, one per project (24px grid, stroked with currentColor).
+const icons: Record<string, string> = {
+  news: '<path d="M4 5h13v14H6a2 2 0 0 1-2-2V5Z"/><path d="M17 9h3v8a2 2 0 0 1-2 2"/><path d="M8 9h5M8 13h5M8 16h3"/>',
+  vision:
+    '<circle cx="8" cy="8" r="2.5"/><circle cx="16" cy="8" r="2.5"/><path d="M3.5 18a4.5 4.5 0 0 1 9 0M11.5 18a4.5 4.5 0 0 1 9 0"/>',
+  crm: '<path d="M4 6h10M4 12h7M4 18h4"/><path d="m15 15 3 3 3-3M18 18V9"/>',
+  robot:
+    '<rect x="5" y="8" width="14" height="10" rx="2"/><path d="M12 4v4M9 13h.01M15 13h.01M3 12v3M21 12v3"/>',
+  healthcare:
+    '<ellipse cx="12" cy="6" rx="7" ry="2.5"/><path d="M5 6v12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V6"/><path d="M5 12c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5"/>',
+};
+const fallbackIcon = '<rect x="4" y="4" width="16" height="16" rx="3"/>';
 ---
 
 <Layout>
-  <div class="reading-progress" aria-hidden="true"></div>
-  <header class="site-header">
-    <div class="wrap header-inner">
-      <a class="brand" href="#top" aria-label="Bhargav Sai Bhartu home">
-        <span class="brand-mark">
-          B<span>.</span>
-        </span>
-        <span>
-          Bhargav Sai Bhartu<small>Python & AI Developer</small>
-        </span>
-      </a>
-      <nav id="navigation" aria-label="Main navigation">
-        <a href="#work">Projects</a>
-        <a href="#experience">Experience</a>
-        <a href="#skills">Skills</a>
-        <a href="#demo">Demo</a>
-        <a href="#about">About</a>
-      </nav>
-      <div class="header-tools">
-        <button
-          class="tool search-open"
-          data-command-open
-          aria-label="Open quick menu"
-          title="Quick menu (Ctrl/Cmd K)"
-        >
-          <Icon name="search" size={18} />
-        </button>
-        <button class="tool" data-theme aria-label="Switch to dark theme">
-          <Icon name="moon" size={18} />
-        </button>
-        <a class="header-resume" href={`${base}/resume/`}>
-          Resume <Icon name="arrow" size={14} />
-        </a>
-        <button
-          class="tool menu-toggle"
-          aria-label="Open navigation"
-          aria-expanded="false"
-          aria-controls="navigation"
-        >
-          <Icon name="menu" />
-        </button>
-      </div>
-    </div>
-  </header>
+  <SiteHeader />
   <main id="main">
-    <section class="hero wrap" id="top" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="role-badge" data-reveal>
-          <span class="status-dot"></span> Junior Software Developer · PHYTEC India
-        </p>
-        <h1 id="hero-title" aria-label={profile.name} data-reveal>
-          Bhargav Sai
-          <br />
-          <span>Bhartu</span>
-        </h1>
-        <p class="hero-role" data-reveal>
-          Python & AI Developer building computer vision and automation systems
-        </p>
-        <p class="hero-description" data-reveal>
-          At PHYTEC India, I design and ship practical backend and AI software—from an
-          on-premises face recognition attendance platform with liveness checks to
-          LLM-powered news briefings and Odoo CRM webhook pipelines.
-        </p>
-        <div class="hero-actions" data-reveal>
-          <a class="button button-dark" href="#work">
-            View Projects <Icon name="down" size={16} />
-          </a>
-          <a class="button button-outline" href={cvPdf} download>
-            <Icon name="file" size={16} /> Download Resume
-          </a>
-        </div>
-        <div class="hero-links" data-reveal>
-          <a href={`${base}/resume/`}>
-            Online Resume <Icon name="arrow" size={14} />
-          </a>
-          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
-            LinkedIn <Icon name="arrow" size={14} />
-          </a>
-          <a href={profile.github} target="_blank" rel="noopener noreferrer">
-            GitHub <Icon name="arrow" size={14} />
-          </a>
-          <button data-recruiter-open>
-            Quick Summary <Icon name="arrow" size={14} />
-          </button>
-        </div>
-      </div>
-
-      <aside class="hero-profile" aria-label="Engineering overview" data-reveal>
-        <div class="spec-card">
-          <div class="spec-head">
-            <span class="mini-label">SYSTEMS SNAPSHOT</span>
-            <span class="spec-loc">
-              <Icon name="location" size={14} />
-              Visakhapatnam, IN
-            </span>
-          </div>
-          <dl class="spec-list">
-            <div>
-              <dt>Current Role</dt>
-              <dd>Junior Software Developer · PHYTEC India</dd>
-            </div>
-            <div>
-              <dt>Flagship Build</dt>
-              <dd>
-                Face Attendance AI — YuNet, MiniFASNet, SFace, FastAPI,
-                PostgreSQL (pgvector), Docker, 91 pytest tests
-              </dd>
-            </div>
-            <div>
-              <dt>Automation</dt>
-              <dd>n8n workflows · Groq LLM APIs · Odoo CRM webhooks</dd>
-            </div>
-            <div>
-              <dt>Core Stack</dt>
-              <dd>Python · FastAPI · OpenCV · PostgreSQL · MySQL · Git</dd>
-            </div>
-          </dl>
-          <div class="spec-pipeline">
-            <div class="spec-pipeline-head">
-              <span>ATTENDANCE PIPELINE</span>
-              <a href="#demo">Try simulation →</a>
-            </div>
-            <div class="spec-steps" aria-hidden="true">
-              <span>01 Detect</span>
-              <span>02 Quality</span>
-              <span>03 Liveness</span>
-              <span>04 Match</span>
-            </div>
-          </div>
-        </div>
-      </aside>
-    </section>
-
-    <div class="focus-strip">
-      <div class="wrap">
-        <p>CORE STACK</p>
-        <span>Python</span>
-        <span>FastAPI</span>
-        <span>OpenCV</span>
-        <span>PostgreSQL + pgvector</span>
-        <span>Docker</span>
-        <span>n8n & LLM APIs</span>
-        <span>Odoo CRM</span>
-      </div>
-    </div>
-
-    <section class="section wrap" id="work" aria-labelledby="work-title">
-      <div class="section-top" data-reveal>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
         <div>
-          <p class="eyebrow">SELECTED PROJECTS</p>
-          <h2 id="work-title">
-            Software built to solve
-            <br />
-            <span>real operational problems.</span>
-          </h2>
-        </div>
-        <p class="section-description">
-          Production systems and engineering projects across computer vision,
-          workflow automation, and full-stack development. Open any card for
-          architecture notes.
-        </p>
-      </div>
-      <div class="filter-row">
-        <div class="filters" role="group" aria-label="Filter projects">
-          {["All work", "Data & vision", "Automation", "Full-stack"].map(
-            (label, i) => (
-              <button
-                class:list={["filter", { "is-active": i === 0 }]}
-                data-project-filter={i === 0 ? "all" : label}
-                aria-pressed={i === 0 ? "true" : "false"}
-              >
-                {label}
-              </button>
-            ),
-          )}
-        </div>
-        <span class="project-count" aria-live="polite">
-          <span data-project-count>{projects.length}</span> projects
-        </span>
-      </div>
-      <div class="projects-grid">
-        {projects.map((project) => (
-          <article
-            class:list={["project", { "project-wide": project.wide }]}
-            data-category={project.category}
-            data-reveal
-            data-spotlight
-          >
-            <button
-              class="project-preview"
-              data-project-open={project.id}
-              aria-label={`Read architecture notes for ${project.name}`}
+          <p class="eyebrow">{profile.headline} · PHYTEC India</p>
+          <h1 id="hero-title">
+            Building computer vision and <em>automation</em> that works in the
+            real world.
+          </h1>
+          <p class="lead">
+            I'm {profile.name}, a junior software developer in Bengaluru. I
+            built a face recognition attendance system end to end, from the
+            vision pipeline to the on-premises server, and I automate business
+            workflows with n8n and Odoo CRM.
+          </p>
+          <div class="actions">
+            <a class="button" href="#work">
+              View selected work{" "}
+              <span class="arrow" aria-hidden="true">
+                →
+              </span>
+            </a>
+            <a class="button secondary" href={cv} download>
+              Download resume
+            </a>
+          </div>
+          <div class="social">
+            <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            <a href={profile.github} target="_blank" rel="noopener noreferrer">
+              GitHub ↗
+            </a>
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <ProjectVisual type={project.visual} />
-              <span class="project-number" aria-hidden="true">
-                /{project.number}
-              </span>
-              <span class="project-open">
-                <Icon name="arrow" size={16} />
-              </span>
-            </button>
-            <div class="project-info">
-              <div class="project-kicker">
-                <span>{project.category}</span>
-                <span
-                  class:list={[
-                    "project-status",
-                    { "in-progress": project.id === "crm" },
-                  ]}
-                >
-                  {project.status}
-                </span>
+              LinkedIn ↗
+            </a>
+          </div>
+        </div>
+
+        <aside class="card glance" aria-label="At a glance">
+          <div class="glance-title">
+            <span>At a glance</span>
+            <span class="status">Currently at PHYTEC India</span>
+          </div>
+          <dl>
+            {glance.map(([label, value]) => (
+              <div>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
               </div>
-              <h3>
-                <button class="project-title" data-project-open={project.id}>
-                  {project.name}
-                  <Icon name="arrow" size={18} />
-                </button>
-              </h3>
-              <p>{project.summary}</p>
-              <ul class="tags">
-                {project.tags.map((tag) => (
-                  <li>{tag}</li>
-                ))}
-              </ul>
-              <button
-                class="text-link case-link"
-                data-project-open={project.id}
-              >
-                Read project notes <Icon name="chevron" size={15} />
-              </button>
-            </div>
-          </article>
-        ))}
-      </div>
-      <div class="section-bottom">
-        <p>More code and experiments on GitHub.</p>
-        <a
-          class="text-link"
-          href={profile.github}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          github.com/ur24l <Icon name="arrow" size={16} />
-        </a>
+            ))}
+          </dl>
+        </aside>
       </div>
     </section>
 
-    <section
-      class="experience-section"
-      id="experience"
-      aria-labelledby="experience-title"
-    >
+    <section class="numbers" aria-label="Key numbers">
       <div class="wrap">
-        <div class="section-top" data-reveal>
+        <ul>
+          {numbers.map(([value, label]) => (
+            <li class="reveal">
+              <strong>{value}</strong>
+              <span>{label}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="work" aria-labelledby="work-title">
+      <div class="wrap">
+        <div class="section-head">
           <div>
-            <p class="eyebrow">WORK EXPERIENCE</p>
-            <h2 id="experience-title">
-              Where I build
-              <br />
-              <span>and ship production software.</span>
-            </h2>
+            <p class="eyebrow">Selected work</p>
+            <h2 id="work-title">Case study</h2>
           </div>
-          <p class="section-description">
-            Backend, computer vision, and automation engineering at PHYTEC India,
-            following a full-stack product engineering internship.
+          <p>
+            The project I'm proudest of: a system my colleagues use to check in
+            at work, built and deployed by me.
           </p>
         </div>
-        <div class="experience-list">
-          {profile.experience.map((job, i) => (
-            <article class="experience" data-reveal>
-              <div class="experience-meta">
-                <span class:list={["employment-label", { current: i === 0 }]}>
-                  {i === 0 ? "CURRENT ROLE" : "INTERNSHIP"}
-                </span>
-                <p>{job.dates}</p>
-                <small>
-                  {i === 0 ? "Visakhapatnam · Full-time" : "Remote"}
-                </small>
+
+        <article class="card case reveal" id={featured.id}>
+          <div class="case-grid">
+            <div class="case-copy">
+              <div class="case-meta">
+                <span class="badge">Featured</span>
+                <span>{featured.context}</span>
               </div>
-              <div class="experience-body">
-                <div class="experience-title">
-                  <div>
-                    <h3>{job.title}</h3>
-                    <p>{i === 0 ? "PHYTEC India" : "Superport-IT"}</p>
-                  </div>
-                  <span class="company-monogram" aria-hidden="true">
-                    {i === 0 ? "P" : "S"}
-                  </span>
-                </div>
-                <ul class="experience-points">
-                  {job.bullets.map((bullet) => (
-                    <li>{bullet}</li>
+              <h3>{featured.name}</h3>
+              <p class="summary">{featured.summary}</p>
+              <ul class="points">
+                {featured.points.map((point) => (
+                  <li>{point}</li>
+                ))}
+              </ul>
+              <ul class="tags" aria-label="Technologies">
+                {featured.stack.map((tech) => (
+                  <li>{tech}</li>
+                ))}
+              </ul>
+            </div>
+
+            <figure class="case-visual">
+              <svg
+                class="diagram"
+                viewBox="0 0 480 420"
+                role="img"
+                aria-labelledby="diagram-title"
+              >
+                <title id="diagram-title">
+                  Check-in pipeline: capture, detect, check quality, liveness,
+                  match against PostgreSQL with pgvector, then record attendance
+                  and update the HR dashboard.
+                </title>
+                <line class="d-line" x1="145" y1="40" x2="145" y2="356" />
+                {pipeline.map(([label, sub], i) => (
+                  <g transform={`translate(20 ${16 + i * 66})`}>
+                    <rect class="d-box" width="250" height="48" rx="8" />
+                    <circle class="d-dot" cx="24" cy="24" r="11" />
+                    <text class="d-num" x="24" y="28">
+                      {i + 1}
+                    </text>
+                    <text class="d-label" x="46" y="21">
+                      {label}
+                    </text>
+                    <text class="d-sub" x="46" y="37">
+                      {sub}
+                    </text>
+                  </g>
+                ))}
+                <line class="d-line" x1="270" y1="304" x2="310" y2="304" />
+                <g transform="translate(310 280)">
+                  <rect class="d-box alt" width="150" height="48" rx="8" />
+                  <text class="d-label" x="14" y="21">
+                    PostgreSQL
+                  </text>
+                  <text class="d-sub" x="14" y="37">
+                    pgvector search
+                  </text>
+                </g>
+                <g transform="translate(20 346)">
+                  <rect class="d-box strong" width="250" height="48" rx="8" />
+                  <text class="d-label inv" x="18" y="21">
+                    Attendance recorded
+                  </text>
+                  <text class="d-sub inv" x="18" y="37">
+                    Check-in or check-out
+                  </text>
+                </g>
+                <line class="d-line" x1="270" y1="370" x2="310" y2="370" />
+                <g transform="translate(310 346)">
+                  <rect class="d-box alt" width="150" height="48" rx="8" />
+                  <text class="d-label" x="14" y="21">
+                    HR dashboard
+                  </text>
+                  <text class="d-sub" x="14" y="37">
+                    Live over WebSockets
+                  </text>
+                </g>
+              </svg>
+              <figcaption>
+                Every scan passes four checks before attendance is recorded.
+              </figcaption>
+            </figure>
+          </div>
+          <div class="highlights">
+            {highlights.map(([title, text]) => (
+              <div>
+                <h4>{title}</h4>
+                <p>{text}</p>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <h3 class="more-title">More projects</h3>
+        <div class="project-grid">
+          {others.map((project) => (
+            <article class="card project reveal" id={project.id}>
+              <div class="project-top">
+                <span class="project-icon" aria-hidden="true">
+                  <svg
+                    width="26"
+                    height="26"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    set:html={icons[project.id] ?? fallbackIcon}
+                  />
+                </span>
+                <span class="context">{project.context}</span>
+              </div>
+              <h3>{project.name}</h3>
+              <p class="summary">{project.summary}</p>
+              <details>
+                <summary>How it works</summary>
+                <ul>
+                  {project.points.map((point) => (
+                    <li>{point}</li>
                   ))}
                 </ul>
-                {i === 0 && (
-                  <div class="current-build">
-                    <Icon name="flow" size={20} />
-                    <div>
-                      <b>Production Highlight · Face Attendance AI</b>
-                      <p>
-                        Camera → Quality Gate → MiniFASNet Liveness → pgvector
-                        Match → Live WebSocket HR Dashboard
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
+              </details>
+              <ul class="tags" aria-label="Technologies">
+                {project.stack.map((tech) => (
+                  <li>{tech}</li>
+                ))}
+              </ul>
             </article>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="section wrap" id="skills" aria-labelledby="skills-title">
-      <div class="section-top" data-reveal>
-        <div>
-          <p class="eyebrow">SKILLS & TOOLING</p>
-          <h2 id="skills-title">
-            Technical stack
-            <br />
-            <span>and active learning.</span>
-          </h2>
-        </div>
-        <p class="section-description">
-          Organized by production usage, distinguishing day-to-day engineering
-          tools from active learning areas.
-        </p>
-      </div>
-      <div class="skill-cards">
-        {profile.skillGroups.map((group, i) => (
-          <article class="skill-card" data-reveal>
-            <span class="skill-index">0{i + 1}</span>
-            <h3>{group.title}</h3>
-            <p>{group.note}</p>
-            <ul>
-              {group.items.map((item) => (
-                <li>{item}</li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </div>
-      <div class="learning-focus" data-reveal>
-        <span class="learning-icon">
-          <Icon name="code" size={22} />
-        </span>
-        <div>
-          <h3>Next engineering focus</h3>
-          <p>
-            Deploying face recognition models on embedded NPU boards (edge AI),
-            building multi-step AI agent workflows, and deepening JavaScript
-            proficiency.
-          </p>
-        </div>
-        <span class="learning-pill">ROADMAP</span>
-      </div>
-    </section>
-
-    <section class="lab-section" id="demo" aria-labelledby="lab-title">
+    <section class="section" id="experience" aria-labelledby="experience-title">
       <div class="wrap">
-        <div class="lab-intro">
+        <div class="section-head">
           <div>
-            <p class="eyebrow">INTERACTIVE PIPELINE DEMO</p>
-            <h2 id="lab-title">
-              Face check-in verification,
-              <br />
-              <span>step by step.</span>
-            </h2>
+            <p class="eyebrow">Experience</p>
+            <h2 id="experience-title">Where I've worked</h2>
           </div>
           <p>
-            A deterministic browser simulation of the decision gates inside Face
-            Attendance AI. No camera is accessed and no data is stored.
+            From building CRM features as an intern to shipping a production
+            system at PHYTEC India.
           </p>
         </div>
-        <div class="workflow-lab" data-reveal>
-          <div class="lab-toolbar">
-            <span>
-              <i class="status-dot"></i> face-check-in.pipeline
-            </span>
-            <span class="demo-label">LOCAL SIMULATION · NO CAMERA</span>
-          </div>
-          <div class="lab-main">
-            <div class="lab-controls">
-              <span class="mini-label">01 / SELECT SCENARIO</span>
-              <label for="scenario">Input frame condition</label>
-              <select id="scenario">
-                <option value="valid">Enrolled employee, good light</option>
-                <option value="dark">Enrolled employee, poor light</option>
-                <option value="photo">Printed photo held to camera</option>
-                <option value="unknown">Unregistered person</option>
-              </select>
-              <div class="sample-input">
-                <span>
-                  source <b data-sample="source">Entrance kiosk</b>
-                </span>
-                <span>
-                  light <b data-sample="light">Good</b>
-                </span>
-                <span>
-                  face <b data-sample="face">Live employee</b>
-                </span>
+        <ol class="timeline">
+          {profile.experience.map((job) => (
+            <li class="reveal">
+              <div class="when">
+                <strong>{job.dates}</strong>
+                {job.title.includes("Intern") ? "Internship" : "Full time"}
               </div>
-              <button class="button button-accent" id="run-workflow">
-                <Icon name="play" size={16} /> Run Pipeline
-              </button>
-              <p class="lab-footnote">
-                Simulates YuNet detection, quality thresholds, MiniFASNet
-                liveness, and SFace matching.
-              </p>
-            </div>
-            <div class="lab-canvas">
-              <ol class="workflow-nodes">
-                <li data-node="0">
-                  <span class="node-icon">
-                    <Icon name="search" />
-                  </span>
-                  <div>
-                    <small>STAGE 01 · DETECT</small>
-                    <b>Locate face & landmarks</b>
-                  </div>
-                  <span class="node-state">01</span>
-                </li>
-                <li data-node="1">
-                  <span class="node-icon">
-                    <Icon name="check" />
-                  </span>
-                  <div>
-                    <small>STAGE 02 · QUALITY</small>
-                    <b>Light, sharpness & pose</b>
-                  </div>
-                  <span class="node-state">02</span>
-                </li>
-                <li data-node="2">
-                  <span class="node-icon">
-                    <Icon name="spark" />
-                  </span>
-                  <div>
-                    <small>STAGE 03 · LIVENESS</small>
-                    <b>Anti-spoofing check</b>
-                  </div>
-                  <span class="node-state">03</span>
-                </li>
-                <li data-node="3">
-                  <span class="node-icon">
-                    <Icon name="grid" />
-                  </span>
-                  <div>
-                    <small>STAGE 04 · MATCH</small>
-                    <b>pgvector embedding lookup</b>
-                  </div>
-                  <span class="node-state">04</span>
-                </li>
-              </ol>
-              <div class="lab-result" role="status" aria-live="polite">
-                <span class="result-dot"></span>
-                <p id="workflow-result">
-                  Ready. Choose a scenario and run the pipeline.
-                </p>
+              <div class="role">
+                <h3>{job.title}</h3>
+                <p class="org">{job.org}</p>
+                <ul>
+                  {job.bullets.map((bullet) => (
+                    <li>{bullet}</li>
+                  ))}
+                </ul>
               </div>
-            </div>
-          </div>
-        </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
 
-    <section class="section wrap" id="about" aria-labelledby="about-title">
-      <div class="about-grid">
-        <div class="about-copy" data-reveal>
-          <p class="eyebrow">ABOUT</p>
-          <h2 id="about-title">
-            Engineering reliable software
-            <br />
-            <span>for real-world teams.</span>
-          </h2>
-          <p>
-            I am Bhargav Sai Bhartu, a Python and AI developer at PHYTEC India in
-            Visakhapatnam. I focus on practical systems where computer vision,
-            APIs, and workflow automation eliminate manual bottlenecks.
-          </p>
-          <p>
-            From designing PostgreSQL schemas and FastAPI services to debugging
-            anti-spoofing thresholds and maintaining Docker deployments, I take
-            ownership across the full lifecycle—architecture, testing, and
-            production operations.
-          </p>
-          <div class="about-contact">
-            <a class="text-link" href={`mailto:${profile.email}`}>
-              Get in touch <Icon name="arrow" size={16} />
-            </a>
-            <span>Telugu · English</span>
+    <section class="section" id="skills" aria-labelledby="skills-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Skills</p>
+            <h2 id="skills-title">What I work with</h2>
           </div>
+          <p>
+            Grouped honestly: what I use every day, what I've shipped with, and
+            what I'm still learning.
+          </p>
         </div>
-        <aside class="education-panel" data-reveal>
-          <h3>Education & Achievements</h3>
-          {profile.education.map((item) => (
-            <div class="education-item">
-              <span>{item.dates}</span>
-              <h4>{item.degree}</h4>
-              <p>{item.school}</p>
-              <small>{item.detail}</small>
+        <div class="skill-grid">
+          {profile.skillGroups.map((group) => (
+            <div
+              class={`card skill-card reveal${group.title === "Currently learning" ? " learning" : ""}`}
+            >
+              <h3>{group.title}</h3>
+              {group.note && <p class="level">{group.note}</p>}
+              <ul>
+                {group.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
             </div>
           ))}
-          <div class="milestone">
-            <Icon name="spark" size={18} />
-            <div>
-              <b>1st Place · HACKAP Hackathon</b>
-              <span>Andhra Pradesh · 2023</span>
-            </div>
-          </div>
-          <div class="milestone">
-            <Icon name="code" size={18} />
-            <div>
-              <b>LeRobot Worldwide Hackathon</b>
-              <span>Participant · Hugging Face · 2025</span>
-            </div>
-          </div>
-          <details class="more-milestones">
-            <summary>
-              Certifications & Leadership <span>+</span>
-            </summary>
-            <ul>
-              <li>Full-Stack Development · Wipro</li>
-              <li>Programming in Java · NPTEL</li>
-              <li>Ethical Hacking Workshop · JNTU Kakinada</li>
-              <li>NSS Coordinator · Community welfare events</li>
-            </ul>
-          </details>
-        </aside>
+        </div>
       </div>
     </section>
 
-    <section
-      class="section wrap contact-section"
-      id="contact"
-      aria-labelledby="contact-title"
-    >
-      <div class="contact-left" data-reveal>
-        <p class="eyebrow">CONTACT</p>
-        <h2 id="contact-title">
-          Let’s connect about
-          <br />
-          <span>engineering roles or projects.</span>
-        </h2>
-        <p class="contact-description">
-          Open to Python, Backend, and Applied AI engineering opportunities and
-          technical collaborations.
-        </p>
-        <div class="contact-email">
-          <a href={`mailto:${profile.email}`}>
-            {profile.email}
-            <Icon name="arrow" size={20} />
-          </a>
-          <button data-copy-email aria-label="Copy email address" title="Copy email">
-            <Icon name="copy" size={18} />
-          </button>
+    <section class="section" id="education" aria-labelledby="education-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Background</p>
+            <h2 id="education-title">Education and recognition</h2>
+          </div>
         </div>
-        <div class="contact-links">
-          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
-            LinkedIn <Icon name="arrow" size={15} />
-          </a>
-          <a href={profile.github} target="_blank" rel="noopener noreferrer">
-            GitHub <Icon name="arrow" size={15} />
-          </a>
-          <a href={`tel:${profile.phone.replace(/\s/g, "")}`}>
-            {profile.phone} <Icon name="arrow" size={15} />
-          </a>
+        <div class="edu-grid">
+          <div class="card edu-card reveal">
+            <h3>Education</h3>
+            {profile.education.map((item) => (
+              <div class="edu-item">
+                <div class="top">
+                  <h4>{item.degree}</h4>
+                  <span class="dates">{item.dates}</span>
+                </div>
+                <p>{item.school}</p>
+                <p>{item.detail}</p>
+              </div>
+            ))}
+          </div>
+          <div class="card edu-card reveal">
+            <h3>Awards and certifications</h3>
+            <ul class="awards">
+              {profile.achievements.map((line) => (
+                <li>{line}</li>
+              ))}
+            </ul>
+          </div>
         </div>
-
-        <aside class="resume-card">
-          <div class="resume-card-head">
-            <span class="mini-label">RESUME · 1-PAGE A4</span>
-            <Icon name="file" size={19} />
-          </div>
-          <h3>Resume & Credentials</h3>
-          <p>
-            Single-column ATS-ready resume covering experience at PHYTEC India,
-            Face Attendance AI, technical stack, and education.
-          </p>
-          <div class="resume-card-actions">
-            <a class="button button-dark" href={cvPdf} download>
-              <Icon name="down" size={16} /> Download PDF
-            </a>
-            <a class="button button-outline" href={`${base}/resume/`}>
-              View Online <Icon name="arrow" size={15} />
-            </a>
-          </div>
-          <div class="resume-card-meta">
-            <a href={cvDocx} download>
-              Download Word (.docx) <Icon name="down" size={13} />
-            </a>
-            <span>Synced with profile</span>
-          </div>
-        </aside>
       </div>
+    </section>
 
-      <div class="contact-form-card" data-reveal>
-        <div class="form-card-head">
-          <span class="mini-label">DIRECT INQUIRY</span>
-          <Icon name="mail" size={18} />
-        </div>
-        <h3>Send a message</h3>
-        <p class="form-card-sub">
-          Share details about a role or project. Submissions go directly to{" "}
-          {profile.email}.
-        </p>
-        <form
-          id="contact-form"
-          class="contact-form"
-          data-endpoint={
-            profile.contactWebhookUrl ||
-            `https://formsubmit.co/ajax/${profile.email}`
-          }
-          data-is-webhook={profile.contactWebhookUrl ? "true" : "false"}
-        >
-          <input
-            type="text"
-            name="_honey"
-            class="hp-field"
-            tabindex="-1"
-            autocomplete="off"
-            aria-hidden="true"
-          />
-
-          <div class="form-row-two">
-            <div class="field">
-              <label for="contact-name">Name</label>
-              <input
-                id="contact-name"
-                name="name"
-                type="text"
-                required
-                autocomplete="name"
-                placeholder="Your name"
-              />
-            </div>
-            <div class="field">
-              <label for="contact-email">Email</label>
-              <input
-                id="contact-email"
-                name="email"
-                type="email"
-                required
-                autocomplete="email"
-                placeholder="you@company.com"
-              />
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="contact-topic">Subject</label>
-            <select id="contact-topic" name="topic">
-              <option value="Engineering Role / Hiring">
-                Engineering Role / Hiring
-              </option>
-              <option value="Project / Technical Collaboration">
-                Project / Technical Collaboration
-              </option>
-              <option value="Automation / AI Inquiry">
-                Automation / AI Inquiry
-              </option>
-              <option value="General Message">General Message</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="contact-message">Message</label>
-            <textarea
-              id="contact-message"
-              name="message"
-              rows={4}
-              required
-              placeholder="Share details about the role, project, or question..."
-            ></textarea>
-          </div>
-
-          <p id="contact-error" class="form-error" role="alert" hidden></p>
-
-          <button class="button button-dark form-submit" type="submit">
-            Send Message <Icon name="arrow" size={16} />
-          </button>
-        </form>
-
-        <div id="contact-success" class="form-success" hidden>
-          <div class="form-success-icon" aria-hidden="true">
-            <Icon name="check" size={22} />
-          </div>
-          <h4>Message sent — thank you</h4>
-          <p id="contact-success-copy">
-            Your message has been delivered to {profile.email}. I will review
-            your note and reply shortly.
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="wrap contact-grid">
+        <div class="contact-copy">
+          <p class="eyebrow">Contact</p>
+          <h2 id="contact-title">Let's talk.</h2>
+          <p>
+            Questions about my work, a project, or a role? Send a message and I
+            will reply by email.
           </p>
-          <button
-            type="button"
-            class="button button-outline"
-            id="contact-reset"
+          <ul class="contact-list">
+            <li>
+              <span>Email</span>
+              <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            </li>
+            <li>
+              <span>LinkedIn</span>
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                bhargav-sai-bhartu
+              </a>
+            </li>
+            <li>
+              <span>GitHub</span>
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ur24l
+              </a>
+            </li>
+            <li>
+              <span>Location</span>
+              {profile.location}
+            </li>
+          </ul>
+        </div>
+
+        <div class="card form-card">
+          <form
+            id="contact-form"
+            class="contact-form"
+            data-endpoint={endpoint}
+            data-is-webhook={profile.contactWebhookUrl ? "true" : "false"}
+            data-owner-email={profile.email}
           >
-            Send another message
-          </button>
+            <input
+              type="text"
+              name="_honey"
+              class="hp-field"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+            />
+            <div class="form-row">
+              <div class="field">
+                <label for="contact-name">Name</label>
+                <input
+                  id="contact-name"
+                  name="name"
+                  type="text"
+                  required
+                  autocomplete="name"
+                />
+              </div>
+              <div class="field">
+                <label for="contact-email">Email</label>
+                <input
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  required
+                  autocomplete="email"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label for="contact-topic">Subject</label>
+              <select id="contact-topic" name="topic">
+                <option value="Job opportunity">Job opportunity</option>
+                <option value="Project collaboration">
+                  Project collaboration
+                </option>
+                <option value="General question">General question</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="contact-message">Message</label>
+              <textarea
+                id="contact-message"
+                name="message"
+                rows={5}
+                required
+              ></textarea>
+            </div>
+            <p id="contact-error" class="form-error" role="alert" hidden></p>
+            <div>
+              <button class="button form-submit" type="submit">
+                Send message
+              </button>
+            </div>
+          </form>
+
+          <div id="contact-success" class="form-success" hidden>
+            <h3>Message sent</h3>
+            <p id="contact-success-copy">Thank you. I will reply soon.</p>
+            <button type="button" class="button secondary" id="contact-reset">
+              Send another message
+            </button>
+          </div>
         </div>
       </div>
     </section>
   </main>
-
-  <footer class="site-footer wrap">
-    <span>
-      © {new Date().getFullYear()} {profile.name}
-    </span>
-    <div>
-      <button data-motion aria-pressed="false">
-        Motion: on
-      </button>
-      <button data-command-open>
-        Quick menu <kbd>Ctrl K</kbd>
-      </button>
-      <a href="#top">Back to top ↑</a>
-    </div>
-  </footer>
-
-  <dialog id="project-dialog" class="project-dialog">
-    <div class="dialog-head">
-      <span class="mini-label">PROJECT ARCHITECTURE NOTES</span>
-      <button class="share-project" data-copy-project-link>
-        <Icon name="copy" size={15} /> Copy link
-      </button>
-      <button data-close-dialog aria-label="Close project details">
-        <Icon name="close" />
-      </button>
-    </div>
-    <div id="project-detail"></div>
-  </dialog>
-
-  <dialog
-    id="recruiter-dialog"
-    class="recruiter-dialog"
-    aria-labelledby="recruiter-title"
-  >
-    <div class="dialog-head">
-      <span class="mini-label">CANDIDATE OVERVIEW</span>
-      <button data-close-dialog aria-label="Close overview">
-        <Icon name="close" />
-      </button>
-    </div>
-    <p class="eyebrow">PYTHON & AI DEVELOPER</p>
-    <h2 id="recruiter-title">{profile.name}</h2>
-    <p>{profile.summary}</p>
-    <dl class="recruiter-facts">
-      <div>
-        <dt>Core Focus</dt>
-        <dd>Python · FastAPI · Computer Vision · LLM Automation</dd>
-      </div>
-      <div>
-        <dt>Experience</dt>
-        <dd>
-          Junior Software Developer · PHYTEC India; Full Stack Intern ·
-          Superport-IT
-        </dd>
-      </div>
-      <div>
-        <dt>Flagship Project</dt>
-        <dd>
-          Face Attendance AI: liveness checks, live dashboard, PWA client, 91
-          automated tests
-        </dd>
-      </div>
-      <div>
-        <dt>Currently Learning</dt>
-        <dd>Edge AI on NPUs · AI agents · JavaScript</dd>
-      </div>
-    </dl>
-    <div class="dialog-actions">
-      <a class="button button-dark" href={cvPdf} download>
-        <Icon name="down" size={16} /> Download PDF Resume
-      </a>
-      <button class="button button-outline" data-copy-summary>
-        <Icon name="copy" size={16} /> Copy Summary
-      </button>
-    </div>
-    <a class="text-link" href={cvDocx} download>
-      Download Word format (.docx) <Icon name="arrow" size={15} />
-    </a>
-  </dialog>
-
-  <dialog id="command-dialog" class="command-dialog" aria-label="Quick menu">
-    <div class="command-search">
-      <Icon name="search" />
-      <label class="sr-only" for="command-input">
-        Search sections and actions
-      </label>
-      <input
-        id="command-input"
-        type="search"
-        placeholder="Jump to section or action..."
-        autocomplete="off"
-      />
-      <button data-close-dialog aria-label="Close quick menu">
-        <kbd>Esc</kbd>
-      </button>
-    </div>
-    <div id="command-results" class="command-results"></div>
-    <p class="command-help">
-      ↑ ↓ navigate <span>↵ select</span>
-      <span>esc close</span>
-    </p>
-  </dialog>
-
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script>
-    import "../scripts/main";
-  </script>
+  <SiteFooter />
 </Layout>
+
+<script>
+  import "../scripts/contact";
+
+  // Fade sections in as they scroll into view (skipped when motion is reduced).
+  const items = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { rootMargin: "0px 0px -8% 0px" },
+    );
+    items.forEach((el) => observer.observe(el));
+  } else {
+    items.forEach((el) => el.classList.add("is-visible"));
+  }
+</script>

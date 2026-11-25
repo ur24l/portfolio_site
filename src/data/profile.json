@@ -1,8 +1,8 @@
 {
   "name": "Bhargav Sai Bhartu",
-  "headline": "Python & AI Developer",
+  "headline": "Junior Software Developer",
   "contact": [
-    "Visakhapatnam, Andhra Pradesh, India",
+    "India",
     "+91 93462 36509",
     {
       "text": "bhargavsaibhartu@gmail.com",
@@ -21,26 +21,26 @@
       "link": "https://github.com/ur24l"
     }
   ],
-  "summary": "Python and AI developer at PHYTEC India building practical computer vision and workflow automation software. Designed and shipped an on-premises face recognition attendance platform end-to-end—covering anti-spoofing liveness checks, FastAPI, PostgreSQL with pgvector, a live HR dashboard, and a PWA mobile client—backed by 91 automated tests. Also builds LLM-powered workflows and CRM integrations with n8n.",
+  "summary": "Junior Software Developer at PHYTEC India with hands-on experience in computer vision and workflow automation. Built and deployed a face recognition attendance system end to end, from the vision pipeline to the on-premises server. Experienced with Python, FastAPI, PostgreSQL, OpenCV, Docker, and automated testing.",
   "experience": [
     {
       "title": "Junior Software Developer",
-      "org": "PHYTEC India, Visakhapatnam",
-      "dates": "January 2026 – Present",
+      "org": "PHYTEC India, Bengaluru",
+      "dates": "Jan 2026 – Present",
       "bullets": [
-        "Built an end-to-end face recognition attendance system (Python, FastAPI, OpenCV, PostgreSQL + pgvector) with anti-spoofing liveness detection, a real-time HR dashboard, and an employee PWA client.",
-        "Containerized and deployed the system on-premises using Docker, Alembic database migrations, restore-tested daily backups, and 91 automated pytest tests.",
-        "Build and maintain n8n automation workflows that capture marketing leads and route incoming sales inquiries.",
-        "Integrate website inquiry forms with Odoo CRM via webhooks and REST APIs, including payload validation and automated sales notifications."
+        "Built a face recognition attendance system with Python, FastAPI, OpenCV, and PostgreSQL (pgvector), including liveness detection, a live HR dashboard, and a mobile web app.",
+        "Deployed the system on an on-premises Linux server with Docker, database migrations, daily backups, and a suite of 91 automated tests.",
+        "Build n8n workflows that capture marketing leads and route sales inquiries to the right team.",
+        "Developing a website-to-Odoo CRM integration using webhooks and REST APIs."
       ]
     },
     {
       "title": "Full Stack Engineer Intern",
       "org": "Superport-IT (Remote)",
-      "dates": "March 2025 – July 2025",
+      "dates": "Mar 2025 – Jul 2025",
       "bullets": [
         "Developed features for the Sales Pro CRM module using React, Node.js, Express, and MySQL.",
-        "Collaborated with the product team to integrate REST APIs and deliver responsive user interfaces."
+        "Integrated REST APIs and built responsive interfaces with the product team."
       ]
     }
   ],
@@ -49,114 +49,105 @@
       "name": "Face Attendance AI",
       "tech": "Python, FastAPI, OpenCV, PostgreSQL, Docker",
       "bullets": [
-        "Anti-spoofing liveness detection, pgvector similarity search, real-time WebSocket HR dashboard, and an installable PWA client."
+        "Face recognition with liveness detection, vector search, a live HR dashboard, and a mobile web app."
       ]
     },
     {
-      "name": "AI Tech News Briefing System",
+      "name": "AI Tech News Briefing",
       "tech": "n8n, Groq API, RSS",
       "bullets": [
-        "Automated daily 9:00 AM IST digest from 4 RSS feeds featuring deduplication, structured LLM summarization, and fallback model routing."
+        "Daily email briefing from four news feeds, with duplicate removal and LLM-written summaries."
       ]
     },
     {
       "name": "Real-Time People Counting",
       "tech": "Python, OpenCV",
-      "bullets": [
-        "Computer vision pipeline that detects, tracks, and counts people across live video feeds."
-      ]
+      "bullets": ["Detects, tracks, and counts people in a live video feed."]
     },
     {
       "name": "Akshaya Cooking Robot App",
       "tech": "React, Node.js, DynamoDB",
       "bullets": [
-        "Full-stack web application for recipe management, meal planning, and robot status monitoring using Node.js APIs and DynamoDB."
+        "Web app for recipes, meal planning, and robot status monitoring."
       ]
     }
   ],
   "skills": [
+    ["Languages", "Python, SQL, JavaScript (learning)"],
+    ["Backend", "FastAPI, REST APIs, WebSockets, PostgreSQL, MySQL, Redis"],
     [
-      "Languages & Backend",
-      "Python, FastAPI, SQL (PostgreSQL, MySQL), REST APIs, WebSockets"
+      "Vision & AI",
+      "OpenCV, ONNX Runtime, face recognition, pgvector, LLM APIs"
     ],
-    [
-      "AI & Computer Vision",
-      "OpenCV, YuNet, SFace, ONNX Runtime, pgvector, LLM APIs (Groq), n8n"
-    ],
-    [
-      "Infrastructure & Tools",
-      "Docker, Git, Linux, Alembic, pytest, Odoo CRM"
-    ],
-    ["Frontend & Web", "React, Node.js, Express, HTML, CSS"],
-    ["Learning", "JavaScript (learning), AI agents, Edge AI (NPUs), Java (basics)"]
+    ["Tools", "Docker, Git, Linux, pytest, Alembic, n8n, Odoo CRM"],
+    ["Learning", "AI agents, edge AI on NPU boards, Java (basics)"]
   ],
   "education": [
     {
-      "degree": "Bachelor of Technology (B.Tech), Information Technology",
+      "degree": "B.Tech, Information Technology",
       "school": "Anil Neerukonda Institute of Technology and Sciences (ANITS), Visakhapatnam",
       "dates": "2021 – 2024",
-      "detail": "CGPA: 7.77 / 10"
+      "detail": "CGPA 7.77 / 10"
     },
     {
       "degree": "Diploma, Mechanical Engineering",
       "school": "Sai Ganapathi Polytechnic, Visakhapatnam",
       "dates": "2016 – 2019",
-      "detail": "Percentage: 74%"
+      "detail": "74%"
     }
   ],
   "achievements": [
-    "1st Place, HACKAP Hackathon (2023)",
+    "First place, HACKAP Hackathon (2023)",
     "Participant, LeRobot Worldwide Hackathon by Hugging Face (2025)",
     "Certifications: Full-Stack Development (Wipro); Programming in Java (NPTEL)",
-    "Leadership & Workshops: NSS Coordinator; Ethical Hacking Workshop (JNTU Kakinada)"
+    "NSS Coordinator; Ethical Hacking Workshop, JNTU Kakinada"
   ],
   "email": "bhargavsaibhartu@gmail.com",
   "contactWebhookUrl": "",
   "phone": "+91 93462 36509",
-  "location": "Visakhapatnam, India",
+  "location": "India",
   "github": "https://github.com/ur24l",
   "linkedin": "https://www.linkedin.com/in/bhargav-sai-bhartu/",
   "skillGroups": [
     {
       "title": "Hands-on skills",
-      "note": "Used daily in production systems and work projects.",
+      "note": "Used daily in production work",
       "items": [
         "Python",
         "FastAPI",
         "PostgreSQL",
         "MySQL",
-        "REST APIs",
         "Docker",
-        "Git"
+        "Git",
+        "REST APIs"
       ]
     },
     {
-      "title": "AI & computer vision",
-      "note": "Core stack behind my attendance and automation pipelines.",
+      "title": "Computer vision & AI",
+      "note": "Used in shipped projects",
       "items": [
         "OpenCV",
+        "ONNX Runtime",
         "Face recognition",
-        "Liveness detection",
         "pgvector",
         "LLM APIs",
         "n8n"
       ]
     },
     {
-      "title": "Business systems & web",
-      "note": "CRM integrations at work and full-stack web experience.",
-      "items": [
-        "Odoo CRM",
-        "Webhooks",
-        "React",
-        "Node.js & Express",
-        "HTML & CSS"
-      ]
+      "title": "Web & business systems",
+      "note": "From my internship and projects",
+      "items": ["React", "Node.js", "Express", "HTML & CSS", "Odoo CRM"]
     },
     {
       "title": "Currently learning",
-      "note": "Active areas of technical growth.",
-      "items": ["JavaScript", "AI agents", "Edge AI on NPUs", "Java basics"]
+      "note": "Practising now",
+      "items": [
+        "JavaScript",
+        "AI agents",
+        "Edge AI on NPU boards",
+        "Java basics"
+      ]
     }
   ]
 }

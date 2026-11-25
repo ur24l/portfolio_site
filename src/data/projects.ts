@@ -1,142 +1,101 @@
-export type ProjectCategory = "Automation" | "Full-stack" | "Data & vision";
+export type Project = {
+  id: string;
+  name: string;
+  context: string;
+  summary: string;
+  points: string[];
+  stack: string[];
+  featured?: boolean;
+};
 
-// Ordered by strength for a Python / AI developer role: computer vision and AI first.
-export const projects = [
+// Ordered by relevance: the featured project is shown first as a case study.
+export const projects: Project[] = [
   {
     id: "attendance",
-    number: "01",
-    category: "Data & vision" as ProjectCategory,
-    title: "Face recognition attendance with anti-spoofing",
     name: "Face Attendance AI",
-    status: "Production · PHYTEC India",
-    visual: "attendance",
-    wide: true,
+    context: "PHYTEC India · 2026",
+    featured: true,
     summary:
-      "End-to-end face recognition attendance platform with anti-spoofing liveness checks, a live WebSocket HR dashboard, and an installable PWA client running fully on-premises.",
-    tags: ["Python", "FastAPI", "OpenCV", "PostgreSQL + pgvector", "Docker"],
-    problem:
-      "Doorway check-ins must be fast yet tamper-resistant. Poor lighting, printed photos, screen replays, and repeated scans lead to inaccurate logs and attendance disputes.",
-    built: [
-      "Computer vision pipeline: YuNet face detection, brightness/sharpness/head-pose quality gates, MiniFASNet anti-spoofing liveness checks, and SFace embeddings matched in PostgreSQL with pgvector.",
-      "Entrance kiosk mode and an installable PWA mobile client where employees can only check in with their own enrolled face.",
-      "Live HR dashboard over WebSockets and Redis, searchable attendance logs with CSV export, and configurable work-hours rules.",
-      "Authentication & security: Argon2 password hashing, short-lived JWTs, progressive login lockouts, and session invalidation on password reset.",
-      "Operations: Docker deployment, Alembic database migrations, restore-tested daily backups, one-command setup, and 91 automated pytest tests.",
+      "A face recognition attendance system that runs entirely on the company network. Employees check in at an entrance kiosk or from their phone, and HR sees attendance live.",
+    points: [
+      "Vision pipeline with face detection (YuNet), image quality and head-pose checks, liveness detection against printed photos and screens (MiniFASNet), and face matching (SFace) with vector search in PostgreSQL.",
+      "FastAPI backend with role-based access, short-lived tokens, login rate limiting, and password resets that end existing sessions.",
+      "Live HR dashboard over WebSockets, attendance history with filters and CSV export, and configurable work-hours rules.",
+      "Deployed with Docker on an on-premises Linux server, with database migrations, daily backups, and 91 automated tests.",
     ],
-    learned:
-      "Production computer vision is primarily about rejecting bad inputs cleanly and deterministically. Automated tests, migrations, and verified backups are what keep an on-premises service safe to evolve.",
-    note: "Built as a work project at PHYTEC India. The interface preview is an architectural illustration; no real faces or company data are shown.",
+    stack: [
+      "Python",
+      "FastAPI",
+      "OpenCV",
+      "ONNX Runtime",
+      "PostgreSQL",
+      "pgvector",
+      "Redis",
+      "Docker",
+    ],
   },
   {
     id: "news",
-    number: "02",
-    category: "Automation" as ProjectCategory,
-    title: "Automated daily tech digest with LLM scoring",
     name: "AI Tech News Briefing",
-    status: "Personal project",
-    visual: "news",
-    wide: true,
+    context: "Personal project",
     summary:
-      "Daily 9:00 AM IST tech briefing aggregating four RSS feeds—deduplicated, scored, and summarized by LLMs into structured JSON with automatic fallback routing in n8n.",
-    tags: ["n8n", "Groq API", "LLMs", "RSS"],
-    problem:
-      "Tracking AI, semiconductor, and India tech developments manually across multiple sites created noise and inconsistent reading habits.",
-    built: [
-      "Aggregated and deduplicated stories across four technical RSS feeds.",
-      "Prompted an LLM via Groq API to score relevance and return 8–12 structured JSON summaries.",
-      "Scheduled a 9:00 AM IST daily digest alongside a 30-minute breaking-news monitor.",
-      "Implemented automatic model fallback from GPT OSS 120B to GPT OSS 20B to handle rate limits and API errors.",
-      "Formatted responsive table-based HTML emails compatible with both Gmail and Outlook.",
+      "An n8n workflow that turns four technology news feeds into one short daily email.",
+    points: [
+      "Combines four RSS feeds and removes duplicate stories.",
+      "Uses an LLM to rank stories and return 8 to 12 summaries as structured JSON.",
+      "Sends a 9:00 AM briefing and checks for breaking news every 30 minutes.",
+      "Falls back to a smaller model when the main model is rate limited or unavailable.",
     ],
-    learned:
-      "Enforcing structured JSON model outputs, designing resilient API fallbacks, and handling cross-client email HTML constraints.",
-    note: "The preview illustrates the automated workflow and email structure rather than a live inbox.",
+    stack: ["n8n", "Groq API", "LLMs", "RSS"],
   },
   {
     id: "vision",
-    number: "03",
-    category: "Data & vision" as ProjectCategory,
-    title: "Live video person detection and counting",
     name: "Real-Time People Counting",
-    status: "Earlier project",
-    visual: "vision",
+    context: "Earlier project",
     summary:
-      "Python and OpenCV pipeline that detects, tracks, and counts people crossing a virtual boundary in real-time video streams.",
-    tags: ["Python", "OpenCV", "Object tracking"],
-    problem:
-      "Accurate people counting requires maintaining consistent identity tracks across consecutive video frames without double-counting.",
-    built: [
-      "Built a real-time video ingestion and frame processing pipeline in Python.",
-      "Applied OpenCV detection and object tracking across frames to trigger directional line-crossing counts.",
+      "A Python program that detects, tracks, and counts people in a live video feed.",
+    points: [
+      "Processes a live video stream frame by frame.",
+      "Uses OpenCV for person detection, tracking, and counting across a line.",
     ],
-    learned:
-      "Frame-to-frame object tracking fundamentals and handling occlusion and jitter in live video streams.",
-    note: "The visual is a schematic representation of the tracking and counting pipeline.",
+    stack: ["Python", "OpenCV"],
   },
   {
     id: "crm",
-    number: "04",
-    category: "Automation" as ProjectCategory,
-    title: "Automated website lead routing into Odoo CRM",
     name: "Website to Odoo CRM",
-    status: "In progress · PHYTEC India",
-    visual: "crm",
+    context: "PHYTEC India · In progress",
     summary:
-      "n8n webhook pipeline connecting website inquiry forms to Odoo CRM with field validation, schema mapping, and instant sales notifications.",
-    tags: ["Odoo CRM", "n8n", "Webhooks", "REST APIs"],
-    problem:
-      "Manual transfer of website inquiries into CRM created response delays and inconsistent lead data entry.",
-    built: [
-      "Built webhook endpoints to ingest structured website inquiry submissions.",
-      "Added input sanitization, normalization, and validation rules before CRM sync.",
-      "Mapped validated fields directly into Odoo CRM lead records via REST APIs.",
-      "Configured automated alerts so the sales team can respond immediately.",
+      "An integration that sends website inquiries straight to Odoo CRM, so sales no longer copies them by hand.",
+    points: [
+      "Receives form submissions through a webhook.",
+      "Validates and cleans the fields before creating a lead.",
+      "Creates the Odoo CRM lead through its API and notifies the sales team.",
     ],
-    learned:
-      "Webhook reliability, defensive payload validation, and clean field mapping across external CRM APIs.",
-    note: "Work in progress at PHYTEC India. Diagram reflects pipeline architecture only; no company data is shown.",
+    stack: ["Odoo CRM", "n8n", "Webhooks", "REST APIs"],
   },
   {
     id: "robot",
-    number: "05",
-    category: "Full-stack" as ProjectCategory,
-    title: "Control and recipe platform for smart cooking hardware",
     name: "Akshaya Cooking Robot App",
-    status: "Earlier project",
-    visual: "robot",
+    context: "Earlier project",
     summary:
-      "Full-stack web application for managing recipes, meal plans, and live robot status backed by Node.js APIs and DynamoDB.",
-    tags: ["React", "Node.js", "DynamoDB", "AWS"],
-    problem:
-      "Connected kitchen hardware needs an intuitive web interface to browse recipes, schedule meals, and monitor device state.",
-    built: [
-      "Built responsive UI views using React and Material-UI.",
-      "Implemented Node.js and Express REST endpoints for authentication, recipes, and robot status.",
-      "Modeled application data with a single-table DynamoDB schema on AWS.",
+      "A full-stack web app for a smart cooking robot: recipes, meal planning, and robot status.",
+    points: [
+      "Built responsive interfaces with React and Material UI.",
+      "Worked on Node.js and Express APIs for login, recipes, and robot status.",
+      "Used a single-table DynamoDB design on AWS.",
     ],
-    learned:
-      "NoSQL single-table access patterns, REST API design, and connecting React clients to backend services.",
-    note: "The visual summarizes the application architecture rather than a live product screenshot.",
+    stack: ["React", "Node.js", "Express", "DynamoDB", "AWS"],
   },
   {
     id: "healthcare",
-    number: "06",
-    category: "Data & vision" as ProjectCategory,
-    title: "Relational schema and analytics views for healthcare records",
     name: "Healthcare Database & Analytics",
-    status: "Earlier project",
-    visual: "data",
+    context: "Earlier project",
     summary:
-      "Normalized SQL database linking patient records, appointments, and billing with analytical reporting views.",
-    tags: ["SQL", "Data modelling", "Reporting"],
-    problem:
-      "Clinical, scheduling, and billing workflows require a normalized relational model to generate accurate operational reports.",
-    built: [
-      "Designed normalized relational tables with foreign-key constraints across patients, appointments, and billing.",
-      "Authored multi-table SQL joins and reporting views for summary analytics.",
+      "A relational database connecting patient records, appointments, and billing, with reporting views.",
+    points: [
+      "Designed related tables for patients, appointments, and billing.",
+      "Wrote SQL joins and views for practical reports.",
     ],
-    learned:
-      "Relational normalization, referential integrity, and writing maintainable analytical SQL views.",
-    note: "No real patient data is included. The diagram illustrates the relational schema.",
+    stack: ["SQL", "Data modeling"],
   },
 ];
