@@ -1013,6 +1013,130 @@ h2 > span {
   background: #d3ccb2;
   color: #474029;
 }
+/* Face Attendance AI: kiosk check-in illustration (no real faces) */
+.visual-attendance {
+  background: linear-gradient(140deg, #0f3d40, #16696d);
+  color: #d7eeee;
+  display: grid;
+  place-items: center;
+}
+.visual-attendance .visual-grid {
+  opacity: 0.35;
+}
+.visual-attendance .project-number,
+.visual-attendance .visual-caption {
+  color: #bfe3e3;
+}
+.att-kiosk {
+  width: 72%;
+  max-width: 400px;
+  background: #f7fbfb;
+  color: #12393b;
+  border: 1px solid #b9d4d3;
+  border-radius: 8px;
+  box-shadow: 0 22px 50px #03201f55;
+  transform: rotate(-3deg);
+}
+.project-preview:hover .att-kiosk {
+  transform: rotate(-1deg) translateY(-6px);
+}
+.visual-attendance .window-bar {
+  border-bottom-color: #d4e4e3;
+}
+.att-body {
+  display: grid;
+  grid-template-columns: 38% 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 18px;
+}
+.att-scan {
+  position: relative;
+  aspect-ratio: 1;
+  background: #e6f2f1;
+  border-radius: 8px;
+}
+.att-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 0 solid #03a9b5;
+}
+.att-tl {
+  top: 8px;
+  left: 8px;
+  border-top-width: 3px;
+  border-left-width: 3px;
+  border-top-left-radius: 5px;
+}
+.att-tr {
+  top: 8px;
+  right: 8px;
+  border-top-width: 3px;
+  border-right-width: 3px;
+  border-top-right-radius: 5px;
+}
+.att-bl {
+  bottom: 8px;
+  left: 8px;
+  border-bottom-width: 3px;
+  border-left-width: 3px;
+  border-bottom-left-radius: 5px;
+}
+.att-br {
+  bottom: 8px;
+  right: 8px;
+  border-bottom-width: 3px;
+  border-right-width: 3px;
+  border-bottom-right-radius: 5px;
+}
+.att-person {
+  position: absolute;
+  inset: 18%;
+  fill: none;
+  stroke: #2b6e71;
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+.att-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+.att-msg {
+  font-size: 10px;
+  font-weight: 550;
+  padding: 7px 9px;
+  border-radius: 5px;
+  color: #fff;
+  line-height: 1.25;
+}
+.att-warn {
+  background: #b26b00;
+}
+.att-bad {
+  background: #b3261e;
+}
+.att-ok {
+  background: #16969e;
+}
+.att-label-a {
+  top: 34px;
+  left: 22px;
+  rotate: -8deg;
+  background: #e9f7f6;
+  border-color: #9fcfcc;
+  color: #12393b;
+}
+.att-label-b {
+  bottom: 44px;
+  right: 22px;
+  rotate: 7deg;
+  background: #e9f7f6;
+  border-color: #9fcfcc;
+  color: #12393b;
+}
 .visual-vision {
   background: #25392f;
   color: #b5d5a8;

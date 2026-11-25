@@ -1,7 +1,7 @@
 import { animate, inView, scroll } from "motion";
 import { projects } from "../data/projects";
 import profile from "../data/profile.json";
-import { workflowSteps, type Scenario } from "./workflow";
+import { checkinSteps, sampleInputs, type Scenario } from "./checkin";
 
 const root = document.documentElement;
 const $ = <T extends Element = HTMLElement>(selector: string) =>
@@ -385,11 +385,6 @@ const scenario = $<HTMLSelectElement>("#scenario");
 const run = $<HTMLButtonElement>("#run-workflow");
 const nodes = $$("[data-node]");
 const output = $("#workflow-result");
-const demoEmails: Record<Scenario, string> = {
-  valid: "asha@example.com",
-  invalid: "— missing —",
-  duplicate: "asha@example.com (existing)",
-};
 function resetWorkflow() {
   nodes.forEach((node, i) => {
     node.classList.remove("done", "running", "error", "skipped");
@@ -397,19 +392,22 @@ function resetWorkflow() {
     if (state) state.textContent = `0${i + 1}`;
   });
   if (output)
-    output.textContent = "Ready when you are. Choose a scenario and press run.";
+    output.textContent = "Ready. Choose who is at the camera and press run.";
 }
 scenario?.addEventListener("change", () => {
   resetWorkflow();
-  const email = $("[data-sample-email]");
-  if (email) email.textContent = demoEmails[scenario.value as Scenario];
+  const sample = sampleInputs[scenario.value as Scenario];
+  $$("[data-sample]").forEach((field) => {
+    const key = field.getAttribute("data-sample") as keyof typeof sample;
+    field.textContent = sample[key];
+  });
 });
 run?.addEventListener("click", async () => {
   if (!scenario || !output || !run) return;
   run.disabled = true;
   scenario.disabled = true;
   resetWorkflow();
-  const steps = workflowSteps(scenario.value as Scenario);
+  const steps = checkinSteps(scenario.value as Scenario);
   for (let i = 0; i < steps.length; i++) {
     const node = nodes[i];
     if (!node) continue;
@@ -447,12 +445,10 @@ type Command = { label: string; type: string; run: () => void };
 const commands: Command[] = [
   ...[
     ["Selected work", "work"],
-    ["Automation lab", "playground"],
-    ["How I approach a build", "approach"],
+    ["Try the face check-in demo", "demo"],
     ["Experience at PHYTEC", "experience"],
     ["About Bhargav", "about"],
     ["Skills and tools", "skills"],
-    ["Learning notes", "notes"],
     ["Contact", "contact"],
   ].map(([label, id]) => ({
     label,

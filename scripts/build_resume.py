@@ -77,7 +77,7 @@ def bullet(text):
  return item
 
 doc.add_paragraph(p['name'],'Title')
-paragraph('Junior Software Developer',size=12,bold=False,after=5,color='45566E')
+paragraph(p['headline'],size=12,bold=False,after=5,color='45566E')
 contact=paragraph(size=9.5,after=1)
 contact.add_run(p['location']+'  |  '+p['phone']+'  |  ').font.size=Pt(9.5)
 hyperlink(contact,p['email'],'mailto:'+p['email'])
@@ -115,7 +115,7 @@ for line in p['achievements']:paragraph(line,size=9.5,after=2)
 paragraph('Languages: Telugu (native), English (fluent)',size=9.5,after=0,color='596477')
 doc.core_properties.title=p['name']+' Resume'
 doc.core_properties.author=p['name']
-doc.core_properties.subject='Junior Software Developer'
+doc.core_properties.subject=p['headline']
 out=ROOT/'public/assets/Bhargav-Sai-Bhartu-Resume.docx'
 doc.save(out)
 print(out)

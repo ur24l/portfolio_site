@@ -6,6 +6,41 @@ const { type } = Astro.props;
 ---
 
 <div class:list={["project-visual", `visual-${type}`]} aria-hidden="true">
+  {type === "attendance" && (
+    <>
+      <div class="visual-grid"></div>
+      <div class="orbit-label att-label-a">liveness ✓</div>
+      <div class="orbit-label att-label-b">pgvector</div>
+      <div class="att-kiosk">
+        <div class="window-bar">
+          <span>
+            <i></i>
+            <i></i>
+            <i></i>
+          </span>
+          <small>entrance-kiosk</small>
+        </div>
+        <div class="att-body">
+          <div class="att-scan">
+            <span class="att-corner att-tl"></span>
+            <span class="att-corner att-tr"></span>
+            <span class="att-corner att-bl"></span>
+            <span class="att-corner att-br"></span>
+            <svg viewBox="0 0 100 100" class="att-person">
+              <circle cx="50" cy="38" r="16"></circle>
+              <path d="M20 90c4-19 16-28 30-28s26 9 30 28"></path>
+            </svg>
+          </div>
+          <div class="att-messages">
+            <span class="att-msg att-warn">Too dark – find more light</span>
+            <span class="att-msg att-bad">Real face required</span>
+            <span class="att-msg att-ok">Welcome! Checked in 09:28</span>
+          </div>
+        </div>
+      </div>
+      <span class="visual-caption">CHECK-IN FLOW · ILLUSTRATION</span>
+    </>
+  )}
   {type === "news" && (
     <>
       <div class="visual-grid"></div>

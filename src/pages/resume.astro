@@ -7,7 +7,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
 <Layout
   title="Résumé — Bhargav Sai Bhartu"
-  description="Experience, projects, skills and education of Bhargav Sai Bhartu, Junior Software Developer at PHYTEC India."
+  description="Experience, projects, skills and education of Bhargav Sai Bhartu, Python & AI developer at PHYTEC India."
 >
   <div class="resume-toolbar">
     <a href={`${base}/`}>← Back to portfolio</a>
@@ -31,7 +31,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   <main id="main" class="resume-sheet">
     <header>
       <h1>{profile.name}</h1>
-      <p class="resume-headline">Junior Software Developer</p>
+      <p class="resume-headline">{profile.headline}</p>
       <p>
         {profile.location} ·{" "}
         <a href={`tel:${profile.phone.replace(/\s/g, "")}`}>{profile.phone}</a>{" "}

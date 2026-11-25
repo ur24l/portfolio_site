@@ -1,6 +1,6 @@
 {
   "name": "Bhargav Sai Bhartu",
-  "headline": "Junior Software Developer",
+  "headline": "Python & AI Developer",
   "contact": [
     "Visakhapatnam, Andhra Pradesh, India",
     "+91 93462 36509",
@@ -21,16 +21,17 @@
       "link": "https://github.com/ur24l"
     }
   ],
-  "summary": "Junior Software Developer at PHYTEC India supporting Odoo development and n8n automations for marketing and sales. Hands-on with Python, MySQL and workflow automation, with MERN stack project experience. Currently strengthening JavaScript fundamentals and learning AI workflows.",
+  "summary": "Python developer at PHYTEC India building practical AI software. Built a face-recognition attendance system end to end: computer vision with liveness checks, FastAPI, PostgreSQL + pgvector, a live dashboard and a phone app, deployed on-premise with 91 automated tests. Also build LLM automations with n8n.",
   "experience": [
     {
       "title": "Junior Software Developer",
       "org": "PHYTEC India, Visakhapatnam",
       "dates": "January 2026 - Present",
       "bullets": [
-        "Support Odoo development and CRM setup for sales stages, lead pipelines, custom fields and reports.",
-        "Develop n8n automations to help marketing capture leads and sales teams manage enquiries.",
-        "Work on a website-to-Odoo integration using webhooks and REST APIs, with data checks and sales notifications."
+        "Built a face-recognition attendance system end to end (Python, FastAPI, OpenCV, PostgreSQL + pgvector) with liveness checks, a live HR dashboard and a phone app.",
+        "Deployed it on-premise with Docker, database migrations, daily backups and 91 automated tests.",
+        "Develop n8n automations that capture marketing leads and route sales enquiries.",
+        "Integrating website enquiries with Odoo CRM through webhooks and REST APIs, with data validation and sales notifications."
       ]
     },
     {
@@ -38,52 +39,51 @@
       "org": "Superport-IT (Remote)",
       "dates": "March 2025 - July 2025",
       "bullets": [
-        "Contributed to the Sales_Pro CRM module with the product team, using React, Node.js, Express and MySQL.",
-        "Worked on API integration and responsive interfaces while gaining practical full-stack experience."
+        "Built features for the Sales_Pro CRM module with React, Node.js, Express and MySQL.",
+        "Integrated APIs and built responsive interfaces with the product team."
       ]
     }
   ],
   "projects": [
     {
+      "name": "Face Attendance AI",
+      "tech": "Python, FastAPI, OpenCV, PostgreSQL, Docker",
+      "bullets": [
+        "Liveness checks, pgvector face search, a live HR dashboard and a PWA phone app."
+      ]
+    },
+    {
       "name": "AI Tech News Briefing System",
       "tech": "n8n, Groq API, RSS",
       "bullets": [
-        "Created a daily 9:00 AM IST briefing from 4 RSS feeds, with deduplication, structured LLM summaries and a fallback model."
-      ]
-    },
-    {
-      "name": "Akshaya Cooking Robot App",
-      "tech": "React, Node.js, DynamoDB",
-      "bullets": [
-        "Worked on a web app for recipes, meal planning and cooking robot status, gaining experience with APIs and DynamoDB."
-      ]
-    },
-    {
-      "name": "Healthcare Database and Analytics",
-      "tech": "SQL",
-      "bullets": [
-        "Designed related tables and reporting views for patient records, appointments and billing."
+        "Daily 9:00 AM IST briefing from 4 RSS feeds: deduplicated, LLM-summarised, with a fallback model."
       ]
     },
     {
       "name": "Real-time People Counting",
       "tech": "Python, OpenCV",
+      "bullets": ["Detects, tracks and counts people in a live video feed."]
+    },
+    {
+      "name": "Akshaya Cooking Robot App",
+      "tech": "React, Node.js, DynamoDB",
       "bullets": [
-        "Built a video-processing project to detect, track and count people."
+        "Web app for recipes, meal planning and robot status, with Node.js APIs and DynamoDB."
       ]
     }
   ],
   "skills": [
-    ["Work focus", "Odoo development, Odoo CRM, n8n, Webhooks, REST APIs"],
-    ["Hands-on", "Python, MySQL, Workflow Automation"],
     [
-      "Project exposure",
-      "MERN stack, React, Node.js, Express, HTML, CSS, SQL, Git"
+      "Languages & backend",
+      "Python, FastAPI, SQL (PostgreSQL, MySQL), REST APIs, WebSockets"
     ],
     [
-      "Learning",
-      "JavaScript (learning), AI workflows, LLMs and prompting; Java (basics)"
-    ]
+      "AI & computer vision",
+      "OpenCV, YuNet, SFace, ONNX Runtime, pgvector, LLM APIs (Groq), n8n"
+    ],
+    ["Tools", "Docker, Git, Linux, Alembic, pytest, Odoo CRM"],
+    ["Web", "React, Node.js, Express, HTML, CSS"],
+    ["Learning", "JavaScript (learning), AI agents; Java (basics)"]
   ],
   "education": [
     {
@@ -111,42 +111,45 @@
   "linkedin": "https://www.linkedin.com/in/bhargav-sai-bhartu/",
   "skillGroups": [
     {
-      "title": "Work focus",
-      "note": "Tools and tasks I work with at PHYTEC India.",
-      "items": [
-        "Odoo development",
-        "Odoo CRM",
-        "n8n automation",
-        "Webhooks & APIs"
-      ]
-    },
-    {
       "title": "Hands-on skills",
-      "note": "Skills I use in practical work and projects.",
-      "items": ["Python", "MySQL", "Workflow automation"]
-    },
-    {
-      "title": "Project experience",
-      "note": "Technologies I have worked with while building projects.",
+      "note": "Used in real projects and at work.",
       "items": [
-        "MERN stack",
-        "React",
-        "Node.js & Express",
-        "HTML & CSS",
-        "SQL",
+        "Python",
+        "FastAPI",
+        "PostgreSQL",
+        "MySQL",
+        "REST APIs",
+        "Docker",
         "Git"
       ]
     },
     {
-      "title": "Currently learning",
-      "note": "Building stronger fundamentals and exploring new ideas.",
+      "title": "AI & computer vision",
+      "note": "What powers my attendance and automation projects.",
       "items": [
-        "JavaScript",
-        "AI workflows",
-        "LLMs & prompting",
-        "AI agents",
-        "Java basics"
+        "OpenCV",
+        "Face recognition",
+        "Liveness detection",
+        "pgvector",
+        "LLM APIs",
+        "n8n"
       ]
+    },
+    {
+      "title": "Business systems & web",
+      "note": "Integrations at work and earlier full-stack projects.",
+      "items": [
+        "Odoo CRM",
+        "Webhooks",
+        "React",
+        "Node.js & Express",
+        "HTML & CSS"
+      ]
+    },
+    {
+      "title": "Currently learning",
+      "note": "Where I am heading next.",
+      "items": ["JavaScript", "AI agents", "Edge AI on NPUs", "Java basics"]
     }
   ]
 }
