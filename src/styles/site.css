@@ -23,8 +23,9 @@
     0 1px 2px rgb(27 26 24 / 0.04), 0 8px 24px -12px rgb(27 26 24 / 0.12);
   color-scheme: light;
 }
+/* Dark theme: follows the system unless the visitor picks a theme (data-theme on <html>). */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --paper: #121212;
     --surface: #1a1a19;
     --ink: #ece9e3;
@@ -41,6 +42,23 @@
     --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 30px -14px rgb(0 0 0 / 0.6);
     color-scheme: dark;
   }
+}
+:root[data-theme="dark"] {
+  --paper: #121212;
+  --surface: #1a1a19;
+  --ink: #ece9e3;
+  --muted: #b5b0a7;
+  --faint: #8f8a82;
+  --line: #2a2926;
+  --line-strong: #3a3834;
+  --accent: #8cc3d3;
+  --accent-soft: #1c2b30;
+  --warm: #e2a777;
+  --warm-soft: #2b2119;
+  --error: #f2877d;
+  --ok: #6fcf97;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 30px -14px rgb(0 0 0 / 0.6);
+  color-scheme: dark;
 }
 
 *,
@@ -132,6 +150,7 @@ svg {
   min-height: 68px;
 }
 .site-name {
+  white-space: nowrap;
   font: 500 1.2rem var(--serif);
   color: var(--ink);
   letter-spacing: -0.01em;
@@ -153,10 +172,33 @@ svg {
   text-decoration: none;
 }
 .site-nav .nav-cta {
+  white-space: nowrap;
   color: var(--ink);
   border: 1px solid var(--line-strong);
   border-radius: 999px;
   padding: 0.35rem 0.95rem;
+}
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.theme-toggle:hover {
+  border-color: var(--ink);
+}
+.theme-toggle .icon-sun,
+:root[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
+}
+:root[data-theme="dark"] .theme-toggle .icon-sun {
+  display: block;
 }
 .site-nav .nav-cta:hover {
   border-color: var(--ink);
@@ -927,6 +969,12 @@ textarea {
   }
   .site-nav a:not(.nav-cta) {
     display: none;
+  }
+  .site-nav {
+    gap: 0.6rem;
+  }
+  .site-name {
+    font-size: 1.05rem;
   }
   .hero {
     padding: 3.5rem 0 3rem;

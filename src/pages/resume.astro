@@ -230,10 +230,8 @@ const linkText = (url: string) =>
         margin-bottom: 4pt;
       }
     }
-    @media (prefers-color-scheme: dark) {
-      .sheet {
-        border-color: #262a31;
-      }
+    :global(:root[data-theme="dark"]) .sheet {
+      border-color: #262a31;
     }
     @page {
       size: A4;

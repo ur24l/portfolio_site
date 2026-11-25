@@ -26,7 +26,21 @@ const og = new URL(asset("og-image.jpg"), Astro.site).href;
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#f8f6f2" />
     <script is:inline>
-      document.documentElement.classList.add("js");
+      // Apply the saved theme (or the system one) before the page paints.
+      (function () {
+        var root = document.documentElement;
+        root.classList.add("js");
+        var theme = null;
+        try {
+          theme = localStorage.getItem("theme");
+        } catch (e) {}
+        if (theme !== "light" && theme !== "dark") {
+          theme = matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+        root.dataset.theme = theme;
+      })();
     </script>
     <link rel="canonical" href={canonical} />
     <meta property="og:type" content="website" />
