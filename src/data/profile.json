@@ -21,26 +21,26 @@
       "link": "https://github.com/ur24l"
     }
   ],
-  "summary": "Python developer at PHYTEC India building practical AI software. Built a face-recognition attendance system end to end: computer vision with liveness checks, FastAPI, PostgreSQL + pgvector, a live dashboard and a phone app, deployed on-premise with 91 automated tests. Also build LLM automations with n8n.",
+  "summary": "Python and AI developer at PHYTEC India building practical computer vision and workflow automation software. Designed and shipped an on-premises face recognition attendance platform end-to-end—covering anti-spoofing liveness checks, FastAPI, PostgreSQL with pgvector, a live HR dashboard, and a PWA mobile client—backed by 91 automated tests. Also builds LLM-powered workflows and CRM integrations with n8n.",
   "experience": [
     {
       "title": "Junior Software Developer",
       "org": "PHYTEC India, Visakhapatnam",
-      "dates": "January 2026 - Present",
+      "dates": "January 2026 – Present",
       "bullets": [
-        "Built a face-recognition attendance system end to end (Python, FastAPI, OpenCV, PostgreSQL + pgvector) with liveness checks, a live HR dashboard and a phone app.",
-        "Deployed it on-premise with Docker, database migrations, daily backups and 91 automated tests.",
-        "Develop n8n automations that capture marketing leads and route sales enquiries.",
-        "Integrating website enquiries with Odoo CRM through webhooks and REST APIs, with data validation and sales notifications."
+        "Built an end-to-end face recognition attendance system (Python, FastAPI, OpenCV, PostgreSQL + pgvector) with anti-spoofing liveness detection, a real-time HR dashboard, and an employee PWA client.",
+        "Containerized and deployed the system on-premises using Docker, Alembic database migrations, restore-tested daily backups, and 91 automated pytest tests.",
+        "Build and maintain n8n automation workflows that capture marketing leads and route incoming sales inquiries.",
+        "Integrate website inquiry forms with Odoo CRM via webhooks and REST APIs, including payload validation and automated sales notifications."
       ]
     },
     {
       "title": "Full Stack Engineer Intern",
       "org": "Superport-IT (Remote)",
-      "dates": "March 2025 - July 2025",
+      "dates": "March 2025 – July 2025",
       "bullets": [
-        "Built features for the Sales_Pro CRM module with React, Node.js, Express and MySQL.",
-        "Integrated APIs and built responsive interfaces with the product team."
+        "Developed features for the Sales Pro CRM module using React, Node.js, Express, and MySQL.",
+        "Collaborated with the product team to integrate REST APIs and deliver responsive user interfaces."
       ]
     }
   ],
@@ -49,62 +49,69 @@
       "name": "Face Attendance AI",
       "tech": "Python, FastAPI, OpenCV, PostgreSQL, Docker",
       "bullets": [
-        "Liveness checks, pgvector face search, a live HR dashboard and a PWA phone app."
+        "Anti-spoofing liveness detection, pgvector similarity search, real-time WebSocket HR dashboard, and an installable PWA client."
       ]
     },
     {
       "name": "AI Tech News Briefing System",
       "tech": "n8n, Groq API, RSS",
       "bullets": [
-        "Daily 9:00 AM IST briefing from 4 RSS feeds: deduplicated, LLM-summarised, with a fallback model."
+        "Automated daily 9:00 AM IST digest from 4 RSS feeds featuring deduplication, structured LLM summarization, and fallback model routing."
       ]
     },
     {
-      "name": "Real-time People Counting",
+      "name": "Real-Time People Counting",
       "tech": "Python, OpenCV",
-      "bullets": ["Detects, tracks and counts people in a live video feed."]
+      "bullets": [
+        "Computer vision pipeline that detects, tracks, and counts people across live video feeds."
+      ]
     },
     {
       "name": "Akshaya Cooking Robot App",
       "tech": "React, Node.js, DynamoDB",
       "bullets": [
-        "Web app for recipes, meal planning and robot status, with Node.js APIs and DynamoDB."
+        "Full-stack web application for recipe management, meal planning, and robot status monitoring using Node.js APIs and DynamoDB."
       ]
     }
   ],
   "skills": [
     [
-      "Languages & backend",
+      "Languages & Backend",
       "Python, FastAPI, SQL (PostgreSQL, MySQL), REST APIs, WebSockets"
     ],
     [
-      "AI & computer vision",
+      "AI & Computer Vision",
       "OpenCV, YuNet, SFace, ONNX Runtime, pgvector, LLM APIs (Groq), n8n"
     ],
-    ["Tools", "Docker, Git, Linux, Alembic, pytest, Odoo CRM"],
-    ["Web", "React, Node.js, Express, HTML, CSS"],
-    ["Learning", "JavaScript (learning), AI agents; Java (basics)"]
+    [
+      "Infrastructure & Tools",
+      "Docker, Git, Linux, Alembic, pytest, Odoo CRM"
+    ],
+    ["Frontend & Web", "React, Node.js, Express, HTML, CSS"],
+    ["Learning", "JavaScript (learning), AI agents, Edge AI (NPUs), Java (basics)"]
   ],
   "education": [
     {
       "degree": "Bachelor of Technology (B.Tech), Information Technology",
       "school": "Anil Neerukonda Institute of Technology and Sciences (ANITS), Visakhapatnam",
-      "dates": "2021 - 2024",
+      "dates": "2021 – 2024",
       "detail": "CGPA: 7.77 / 10"
     },
     {
       "degree": "Diploma, Mechanical Engineering",
       "school": "Sai Ganapathi Polytechnic, Visakhapatnam",
-      "dates": "2016 - 2019",
+      "dates": "2016 – 2019",
       "detail": "Percentage: 74%"
     }
   ],
   "achievements": [
-    "1st place, HACKAP Hackathon (2023); participant, LeRobot Worldwide Hackathon (2025).",
-    "Full-Stack Development, Wipro; Programming in Java, NPTEL.",
-    "NSS Coordinator; Ethical Hacking Workshop, JNTU Kakinada."
+    "1st Place, HACKAP Hackathon (2023)",
+    "Participant, LeRobot Worldwide Hackathon by Hugging Face (2025)",
+    "Certifications: Full-Stack Development (Wipro); Programming in Java (NPTEL)",
+    "Leadership & Workshops: NSS Coordinator; Ethical Hacking Workshop (JNTU Kakinada)"
   ],
   "email": "bhargavsaibhartu@gmail.com",
+  "contactWebhookUrl": "",
   "phone": "+91 93462 36509",
   "location": "Visakhapatnam, India",
   "github": "https://github.com/ur24l",
@@ -112,7 +119,7 @@
   "skillGroups": [
     {
       "title": "Hands-on skills",
-      "note": "Used in real projects and at work.",
+      "note": "Used daily in production systems and work projects.",
       "items": [
         "Python",
         "FastAPI",
@@ -125,7 +132,7 @@
     },
     {
       "title": "AI & computer vision",
-      "note": "What powers my attendance and automation projects.",
+      "note": "Core stack behind my attendance and automation pipelines.",
       "items": [
         "OpenCV",
         "Face recognition",
@@ -137,7 +144,7 @@
     },
     {
       "title": "Business systems & web",
-      "note": "Integrations at work and earlier full-stack projects.",
+      "note": "CRM integrations at work and full-stack web experience.",
       "items": [
         "Odoo CRM",
         "Webhooks",
@@ -148,7 +155,7 @@
     },
     {
       "title": "Currently learning",
-      "note": "Where I am heading next.",
+      "note": "Active areas of technical growth.",
       "items": ["JavaScript", "AI agents", "Edge AI on NPUs", "Java basics"]
     }
   ]

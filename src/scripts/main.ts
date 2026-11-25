@@ -302,7 +302,7 @@ $("[data-copy-email]")?.addEventListener("click", () =>
 );
 $("[data-copy-summary]")?.addEventListener("click", () =>
   copy(
-    `${profile.name} — Junior Software Developer at PHYTEC India, Visakhapatnam. Works with Odoo development and n8n automations for marketing and sales. Hands-on with Python and MySQL; MERN stack project experience. Currently learning JavaScript and AI workflows. Previous internship at Superport-IT. ${profile.email} | ${profile.github}`,
+    `${profile.name} — ${profile.headline} at PHYTEC India, Visakhapatnam. ${profile.summary} ${profile.email} | ${profile.github}`,
     "Professional summary copied.",
   ),
 );
@@ -459,18 +459,25 @@ const commands: Command[] = [
         ?.scrollIntoView({ behavior: shouldReduce() ? "instant" : "smooth" }),
   })),
   {
-    label: "30-second recruiter overview",
+    label: "Quick summary",
     type: "Open",
     run: () => recruiter?.showModal(),
   },
   {
-    label: "Download CV / résumé",
+    label: "Download Resume (PDF)",
     type: "Download",
     run: () => {
       const link = document.createElement("a");
       link.href = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/assets/Bhargav-Sai-Bhartu-Resume.pdf`;
       link.download = "Bhargav-Sai-Bhartu-Resume.pdf";
       link.click();
+    },
+  },
+  {
+    label: "View Online Resume",
+    type: "Page",
+    run: () => {
+      window.location.href = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/resume/`;
     },
   },
   {
@@ -481,7 +488,7 @@ const commands: Command[] = [
     },
   },
   {
-    label: "Switch colour theme",
+    label: "Switch color theme",
     type: "Action",
     run: () => $("button[data-theme]")?.click(),
   },
@@ -556,3 +563,108 @@ document.addEventListener("keydown", (e) => {
 });
 if (!/Mac|iPhone|iPad/.test(navigator.platform))
   $$("[data-command-open] kbd").forEach((el) => (el.textContent = "Ctrl K"));
+
+const contactForm = $<HTMLFormElement>("#contact-form");
+const contactSuccess = $("#contact-success");
+const contactSuccessCopy = $("#contact-success-copy");
+const contactError = $("#contact-error");
+const contactReset = $("#contact-reset");
+
+contactForm?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const endpoint = contactForm.dataset.endpoint;
+  if (!endpoint) return;
+
+  const isWebhook = contactForm.dataset.isWebhook === "true";
+  const btn = contactForm.querySelector<HTMLButtonElement>(".form-submit");
+  const data = new FormData(contactForm);
+  const name = String(data.get("name") || "").trim();
+  const email = String(data.get("email") || "").trim();
+  const topic = String(data.get("topic") || "General Inquiry").trim();
+  const message = String(data.get("message") || "").trim();
+  const honey = String(data.get("_honey") || "").trim();
+
+  if (honey) return;
+  if (contactError) {
+    contactError.hidden = true;
+    contactError.textContent = "";
+  }
+
+  const originalHtml = btn?.innerHTML || "";
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "Sending message...";
+  }
+
+  try {
+    let ok = false;
+    let errMsg = "";
+    if (isWebhook) {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        body: JSON.stringify({
+          name,
+          email,
+          topic,
+          message,
+          _honey: honey,
+          submittedAt: new Date().toISOString(),
+        }),
+      });
+      const json = await res.json().catch(() => ({ ok: res.ok }));
+      ok = res.ok && json.ok !== false;
+      errMsg = json.error || "";
+    } else {
+      const payload = new FormData();
+      payload.append("name", name);
+      payload.append("email", email);
+      payload.append("topic", topic);
+      payload.append("message", message);
+      payload.append("_subject", `[Portfolio] ${topic} — ${name}`);
+      payload.append("_template", "table");
+
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: payload,
+      });
+      const json = await res.json().catch(() => ({}));
+      ok = res.ok && (json.success === true || json.success === "true");
+      errMsg = json.message || "";
+    }
+
+    if (!ok) {
+      throw new Error(
+        errMsg || "Could not deliver the message. Please try again or email directly.",
+      );
+    }
+
+    contactForm.hidden = true;
+    if (contactSuccessCopy) {
+      contactSuccessCopy.textContent = isWebhook
+        ? `Thanks, ${name}. Your note was delivered to ${profile.email}, and an automatic confirmation has been sent to ${email}.`
+        : `Thanks, ${name}. Your note was delivered to ${profile.email}. I will review it and reply to ${email} shortly.`;
+    }
+    if (contactSuccess) contactSuccess.hidden = false;
+    toast("Message sent successfully.");
+  } catch (err) {
+    if (contactError) {
+      contactError.textContent =
+        err instanceof Error
+          ? err.message
+          : `Unable to send right now. Please email ${profile.email} directly.`;
+      contactError.hidden = false;
+    }
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = originalHtml;
+    }
+  }
+});
+
+contactReset?.addEventListener("click", () => {
+  contactForm?.reset();
+  if (contactSuccess) contactSuccess.hidden = true;
+  if (contactForm) contactForm.hidden = false;
+});

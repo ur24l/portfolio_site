@@ -9,8 +9,6 @@ const { type } = Astro.props;
   {type === "attendance" && (
     <>
       <div class="visual-grid"></div>
-      <div class="orbit-label att-label-a">liveness ✓</div>
-      <div class="orbit-label att-label-b">pgvector</div>
       <div class="att-kiosk">
         <div class="window-bar">
           <span>
@@ -18,7 +16,7 @@ const { type } = Astro.props;
             <i></i>
             <i></i>
           </span>
-          <small>entrance-kiosk</small>
+          <small>face-attendance-pipeline</small>
         </div>
         <div class="att-body">
           <div class="att-scan">
@@ -32,20 +30,18 @@ const { type } = Astro.props;
             </svg>
           </div>
           <div class="att-messages">
-            <span class="att-msg att-warn">Too dark – find more light</span>
-            <span class="att-msg att-bad">Real face required</span>
-            <span class="att-msg att-ok">Welcome! Checked in 09:28</span>
+            <span class="att-msg att-warn">Quality gate: low light rejected</span>
+            <span class="att-msg att-bad">MiniFASNet: spoof blocked</span>
+            <span class="att-msg att-ok">SFace + pgvector: verified 09:28</span>
           </div>
         </div>
       </div>
-      <span class="visual-caption">CHECK-IN FLOW · ILLUSTRATION</span>
+      <span class="visual-caption">ARCHITECTURE ILLUSTRATION · ON-PREMISES</span>
     </>
   )}
   {type === "news" && (
     <>
       <div class="visual-grid"></div>
-      <div class="orbit-label orbit-a">RSS →</div>
-      <div class="orbit-label orbit-b">JSON ✓</div>
       <div class="news-window">
         <div class="window-bar">
           <span>
@@ -53,40 +49,34 @@ const { type } = Astro.props;
             <i></i>
             <i></i>
           </span>
-          <small>morning-brief.email</small>
+          <small>n8n-daily-digest.json</small>
         </div>
         <div class="news-body">
-          <span class="mini-label">YOUR DAILY SIGNAL</span>
-          <div class="news-title">
-            Good morning.
-            <br />
-            Here's what matters.
-          </div>
           <div class="news-date">
-            09:00 IST <span>8–12 selected stories</span>
+            <span>09:00 IST SCHEDULE</span>
+            <span>4 RSS FEEDS → GROQ LLM</span>
           </div>
           <div class="news-story">
             <b>9.0</b>
             <div>
-              <strong>AI & large language models</strong>
-              <span></span>
-              <span></span>
+              <strong>AI & Large Language Models</strong>
+              <span>Deduplicated · Structured JSON</span>
             </div>
           </div>
           <div class="news-story">
-            <b>8.0</b>
+            <b>8.2</b>
             <div>
-              <strong>Chips & emerging technology</strong>
-              <span></span>
-              <span></span>
+              <strong>Semiconductors & Systems</strong>
+              <span>GPT OSS 120B → 20B fallback</span>
             </div>
           </div>
           <div class="news-bottom">
-            4 feeds <i>→</i> LLM + fallback <i>→</i> 1 briefing
+            <span>8–12 ranked summaries</span>
+            <span>HTML Email</span>
           </div>
         </div>
       </div>
-      <span class="visual-caption">WORKFLOW OVERVIEW</span>
+      <span class="visual-caption">WORKFLOW PIPELINE · N8N</span>
     </>
   )}
   {type === "crm" && (
@@ -95,16 +85,16 @@ const { type } = Astro.props;
       <div class="crm-overview">
         <div class="flow-mini">
           <span>01</span>
-          <b>Website enquiry</b>
-          <small>Webhook receives the form</small>
+          <b>Website Form</b>
+          <small>Webhook payload ingestion</small>
         </div>
         <div class="flow-connector">
           <i></i>
         </div>
-        <div class="flow-mini flow-orange">
+        <div class="flow-mini flow-accent">
           <span>02</span>
-          <b>n8n</b>
-          <small>Clean · validate · map</small>
+          <b>n8n Pipeline</b>
+          <small>Sanitize · validate · map schema</small>
         </div>
         <div class="flow-connector">
           <i></i>
@@ -115,37 +105,25 @@ const { type } = Astro.props;
           <small>Create lead + notify sales</small>
         </div>
       </div>
-      <span class="visual-caption">WORKFLOW OVERVIEW · IN PROGRESS</span>
+      <span class="visual-caption">INTEGRATION FLOW · IN PROGRESS</span>
     </>
   )}
   {type === "robot" && (
     <>
-      <div class="recipe-orbit">
-        <span>REACT</span>
-        <span>NODE.JS</span>
-        <span>DYNAMODB</span>
+      <div class="visual-grid"></div>
+      <div class="arch-stack">
+        <div class="arch-node">React + MUI Client</div>
+        <div class="arch-arrow">↕ REST API</div>
+        <div class="arch-node arch-node-mid">Node.js + Express Server</div>
+        <div class="arch-arrow">↕ Single-Table</div>
+        <div class="arch-node">AWS DynamoDB</div>
       </div>
-      <div class="robot-symbol">
-        <svg viewBox="0 0 180 160" fill="none">
-          <path
-            d="M35 65h110l-10 55H45L35 65Z"
-            stroke="currentColor"
-            stroke-width="3"
-          />
-          <path
-            d="M25 65h130M55 45c-15-12 15-18 0-32m35 32c-15-12 15-18 0-32m35 32c-15-12 15-18 0-32M57 132h66"
-            stroke="currentColor"
-            stroke-width="3"
-            stroke-linecap="round"
-          />
-        </svg>
-      </div>
-      <span class="robot-label">Recipes. Meals. Robot status.</span>
-      <span class="visual-caption">APPLICATION OVERVIEW</span>
+      <span class="visual-caption">FULL-STACK ARCHITECTURE</span>
     </>
   )}
   {type === "data" && (
     <>
+      <div class="visual-grid"></div>
       <div class="data-model">
         <span>
           patients <b>PK id</b>
@@ -156,25 +134,25 @@ const { type } = Astro.props;
           <span>billing</span>
         </div>
         <i>↓</i>
-        <span class="model-result">SQL reporting views</span>
+        <span class="model-result">SQL Reporting Views</span>
       </div>
-      <span class="visual-caption">DATA MODEL OVERVIEW</span>
+      <span class="visual-caption">RELATIONAL DATA MODEL</span>
     </>
   )}
   {type === "vision" && (
     <>
       <div class="vision-grid"></div>
       <div class="track-box track-one">
-        <span>person_01</span>
+        <span>ID #01</span>
       </div>
       <div class="track-box track-two">
-        <span>person_02</span>
+        <span>ID #02</span>
       </div>
       <div class="count-line">
-        <span>COUNTING LINE</span>
+        <span>VIRTUAL COUNTING LINE</span>
       </div>
       <span class="vision-caption">detect → track → count</span>
-      <span class="visual-caption">TRACKING ILLUSTRATION</span>
+      <span class="visual-caption">OPENCV TRACKING SCHEMATIC</span>
     </>
   )}
 </div>

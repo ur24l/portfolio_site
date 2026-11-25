@@ -7,7 +7,8 @@ import profile from "../data/profile.json";
 import { projects } from "../data/projects";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const asset = (file: string) => `${base}/assets/${file}`;
-const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
+const cvPdf = asset("Bhargav-Sai-Bhartu-Resume.pdf");
+const cvDocx = asset("Bhargav-Sai-Bhartu-Resume.docx");
 ---
 
 <Layout>
@@ -26,6 +27,7 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
         <a href="#work">Projects</a>
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
+        <a href="#demo">Demo</a>
         <a href="#about">About</a>
       </nav>
       <div class="header-tools">
@@ -33,6 +35,7 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
           class="tool search-open"
           data-command-open
           aria-label="Open quick menu"
+          title="Quick menu (Ctrl/Cmd K)"
         >
           <Icon name="search" size={18} />
         </button>
@@ -40,7 +43,7 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
           <Icon name="moon" size={18} />
         </button>
         <a class="header-resume" href={`${base}/resume/`}>
-          Résumé <Icon name="arrow" size={15} />
+          Resume <Icon name="arrow" size={14} />
         </a>
         <button
           class="tool menu-toggle"
@@ -55,42 +58,35 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
   </header>
   <main id="main">
     <section class="hero wrap" id="top" aria-labelledby="hero-title">
-      <div class="hero-atmosphere" aria-hidden="true">
-        <span></span>
-        <span></span>
-      </div>
-      <div class="hero-edition">
-        <span>DEVELOPER PORTFOLIO / {new Date().getFullYear()}</span>
-        <span>CURIOUS MIND. PRACTICAL BUILDER.</span>
-      </div>
       <div class="hero-copy">
         <p class="role-badge" data-reveal>
-          <span class="status-dot"></span> Junior Software Developer · PHYTEC
-          India
+          <span class="status-dot"></span> Junior Software Developer · PHYTEC India
         </p>
         <h1 id="hero-title" aria-label={profile.name} data-reveal>
           Bhargav Sai
           <br />
-          <span>Bhartu.</span>
+          <span>Bhartu</span>
         </h1>
         <p class="hero-role" data-reveal>
-          Python developer building practical AI
+          Python & AI Developer building computer vision and automation systems
         </p>
         <p class="hero-description" data-reveal>
-          I build Python software that sees, decides and automates: a
-          face-recognition attendance system with liveness checks, LLM-powered
-          news briefings, and CRM automations for sales and marketing at PHYTEC
-          India.
+          At PHYTEC India, I design and ship practical backend and AI software—from an
+          on-premises face recognition attendance platform with liveness checks to
+          LLM-powered news briefings and Odoo CRM webhook pipelines.
         </p>
         <div class="hero-actions" data-reveal>
           <a class="button button-dark" href="#work">
-            View my projects <Icon name="down" size={17} />
+            View Projects <Icon name="down" size={16} />
           </a>
-          <a class="button button-outline" href={cv} download>
-            <Icon name="file" size={17} /> Download résumé
+          <a class="button button-outline" href={cvPdf} download>
+            <Icon name="file" size={16} /> Download Resume
           </a>
         </div>
         <div class="hero-links" data-reveal>
+          <a href={`${base}/resume/`}>
+            Online Resume <Icon name="arrow" size={14} />
+          </a>
           <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
             LinkedIn <Icon name="arrow" size={14} />
           </a>
@@ -98,90 +94,67 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
             GitHub <Icon name="arrow" size={14} />
           </a>
           <button data-recruiter-open>
-            Quick introduction <Icon name="arrow" size={14} />
+            Quick Summary <Icon name="arrow" size={14} />
           </button>
         </div>
       </div>
-      <div class="hero-profile" data-reveal>
-        <div class="portrait-sticker sticker-odoo" aria-hidden="true">
-          <span class="sticker-icon">
-            <Icon name="search" size={20} />
-          </span>
-          <div>
-            <b>Computer vision</b>
-            <small>Faces, liveness, matching</small>
+
+      <aside class="hero-profile" aria-label="Engineering overview" data-reveal>
+        <div class="spec-card">
+          <div class="spec-head">
+            <span class="mini-label">SYSTEMS SNAPSHOT</span>
+            <span class="spec-loc">
+              <Icon name="location" size={14} />
+              Visakhapatnam, IN
+            </span>
           </div>
-          <span class="sticker-check">↗</span>
-        </div>
-        <div class="portrait-sticker sticker-n8n" aria-hidden="true">
-          <span class="sticker-icon">
-            <Icon name="flow" size={22} />
-          </span>
-          <div>
-            <b>AI automation</b>
-            <small>LLMs that do the busywork.</small>
+          <dl class="spec-list">
+            <div>
+              <dt>Current Role</dt>
+              <dd>Junior Software Developer · PHYTEC India</dd>
+            </div>
+            <div>
+              <dt>Flagship Build</dt>
+              <dd>
+                Face Attendance AI — YuNet, MiniFASNet, SFace, FastAPI,
+                PostgreSQL (pgvector), Docker, 91 pytest tests
+              </dd>
+            </div>
+            <div>
+              <dt>Automation</dt>
+              <dd>n8n workflows · Groq LLM APIs · Odoo CRM webhooks</dd>
+            </div>
+            <div>
+              <dt>Core Stack</dt>
+              <dd>Python · FastAPI · OpenCV · PostgreSQL · MySQL · Git</dd>
+            </div>
+          </dl>
+          <div class="spec-pipeline">
+            <div class="spec-pipeline-head">
+              <span>ATTENDANCE PIPELINE</span>
+              <a href="#demo">Try simulation →</a>
+            </div>
+            <div class="spec-steps" aria-hidden="true">
+              <span>01 Detect</span>
+              <span>02 Quality</span>
+              <span>03 Liveness</span>
+              <span>04 Match</span>
+            </div>
           </div>
         </div>
-        <div class="portrait-stage">
-          <svg
-            class="portrait-path"
-            viewBox="0 0 420 480"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path d="M-30 360C170 430 490 140 365 65S75 185 175 350s335 35 270-100" />
-          </svg>
-          <div class="portrait-orbit" aria-hidden="true"></div>
-          <span class="portrait-caption">
-            A LITTLE CURIOSITY GOES A LONG WAY.
-          </span>
-          <img
-            class="hero-portrait"
-            src={asset("bhargav-smile.webp")}
-            alt="Friendly smiling anime portrait of Bhargav Sai Bhartu"
-            width="900"
-            height="1193"
-            fetchpriority="high"
-          />
-          <div class="portrait-signature">
-            <span>Bhargav</span>
-            <small>Always learning. Always building.</small>
-          </div>
-          <span class="portrait-spark" aria-hidden="true">
-            ✳
-          </span>
-        </div>
-        <div class="profile-location">
-          <span>
-            <Icon name="location" size={15} />
-            Visakhapatnam, India
-          </span>
-          <span>Illustrated portrait</span>
-        </div>
-      </div>
-      <div class="hero-footer">
-        <a href="#work">
-          <span class="scroll-cue">
-            <Icon name="down" size={16} />
-          </span>
-          Scroll to explore
-        </a>
-        <span>PYTHON · COMPUTER VISION · AI AUTOMATION</span>
-        <span>
-          Based in India <span class="status-dot"></span>
-        </span>
-      </div>
+      </aside>
     </section>
+
     <div class="focus-strip">
       <div class="wrap">
-        <p>WHAT I WORK WITH</p>
+        <p>CORE STACK</p>
         <span>Python</span>
         <span>FastAPI</span>
         <span>OpenCV</span>
-        <span>PostgreSQL</span>
-        <span class="learning-chip">
-          <span class="status-dot"></span>LLM automation
-        </span>
+        <span>PostgreSQL + pgvector</span>
+        <span>Docker</span>
+        <span>n8n & LLM APIs</span>
+        <span>Odoo CRM</span>
       </div>
     </div>
 
@@ -190,19 +163,20 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
         <div>
           <p class="eyebrow">SELECTED PROJECTS</p>
           <h2 id="work-title">
-            Software that solves
+            Software built to solve
             <br />
-            <span>real problems.</span>
+            <span>real operational problems.</span>
           </h2>
         </div>
         <p class="section-description">
-          From computer vision to LLM automation. Open any project for the
-          problem, what I built and what I learned.
+          Production systems and engineering projects across computer vision,
+          workflow automation, and full-stack development. Open any card for
+          architecture notes.
         </p>
       </div>
       <div class="filter-row">
         <div class="filters" role="group" aria-label="Filter projects">
-          {["All work", "Automation", "Full-stack", "Data & vision"].map(
+          {["All work", "Data & vision", "Automation", "Full-stack"].map(
             (label, i) => (
               <button
                 class:list={["filter", { "is-active": i === 0 }]}
@@ -229,14 +203,14 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
             <button
               class="project-preview"
               data-project-open={project.id}
-              aria-label={`Read about ${project.name}`}
+              aria-label={`Read architecture notes for ${project.name}`}
             >
               <ProjectVisual type={project.visual} />
               <span class="project-number" aria-hidden="true">
                 /{project.number}
               </span>
               <span class="project-open">
-                <Icon name="arrow" />
+                <Icon name="arrow" size={16} />
               </span>
             </button>
             <div class="project-info">
@@ -254,7 +228,7 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
               <h3>
                 <button class="project-title" data-project-open={project.id}>
                   {project.name}
-                  <Icon name="arrow" size={19} />
+                  <Icon name="arrow" size={18} />
                 </button>
               </h3>
               <p>{project.summary}</p>
@@ -274,14 +248,14 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
         ))}
       </div>
       <div class="section-bottom">
-        <p>Explore more of my development work.</p>
+        <p>More code and experiments on GitHub.</p>
         <a
           class="text-link"
           href={profile.github}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Visit my GitHub <Icon name="arrow" size={16} />
+          github.com/ur24l <Icon name="arrow" size={16} />
         </a>
       </div>
     </section>
@@ -298,12 +272,12 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
             <h2 id="experience-title">
               Where I build
               <br />
-              <span>and ship.</span>
+              <span>and ship production software.</span>
             </h2>
           </div>
           <p class="section-description">
-            Product work at PHYTEC India and a full-stack internship. I work
-            closely with the people who use what I build.
+            Backend, computer vision, and automation engineering at PHYTEC India,
+            following a full-stack product engineering internship.
           </p>
         </div>
         <div class="experience-list">
@@ -335,11 +309,12 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
                 </ul>
                 {i === 0 && (
                   <div class="current-build">
-                    <Icon name="flow" size={21} />
+                    <Icon name="flow" size={20} />
                     <div>
-                      <b>Latest build · Face Attendance AI</b>
+                      <b>Production Highlight · Face Attendance AI</b>
                       <p>
-                        Camera → liveness check → face match → live HR dashboard
+                        Camera → Quality Gate → MiniFASNet Liveness → pgvector
+                        Match → Live WebSocket HR Dashboard
                       </p>
                     </div>
                   </div>
@@ -354,16 +329,16 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
     <section class="section wrap" id="skills" aria-labelledby="skills-title">
       <div class="section-top" data-reveal>
         <div>
-          <p class="eyebrow">SKILLS & DEVELOPMENT</p>
+          <p class="eyebrow">SKILLS & TOOLING</p>
           <h2 id="skills-title">
-            Tools I use
+            Technical stack
             <br />
-            <span>to ship.</span>
+            <span>and active learning.</span>
           </h2>
         </div>
         <p class="section-description">
-          Grouped by how I use them. Hands-on skills come from real projects;
-          the last group is what I’m learning now.
+          Organized by production usage, distinguishing day-to-day engineering
+          tools from active learning areas.
         </p>
       </div>
       <div class="skill-cards">
@@ -382,16 +357,17 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
       </div>
       <div class="learning-focus" data-reveal>
         <span class="learning-icon">
-          <Icon name="spark" size={23} />
+          <Icon name="code" size={22} />
         </span>
         <div>
-          <h3>What I’m working towards</h3>
+          <h3>Next engineering focus</h3>
           <p>
-            Running face recognition on an embedded NPU board (edge AI), AI
-            agents for business automation, and stronger JavaScript.
+            Deploying face recognition models on embedded NPU boards (edge AI),
+            building multi-step AI agent workflows, and deepening JavaScript
+            proficiency.
           </p>
         </div>
-        <span class="learning-pill">NEXT</span>
+        <span class="learning-pill">ROADMAP</span>
       </div>
     </section>
 
@@ -399,16 +375,16 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
       <div class="wrap">
         <div class="lab-intro">
           <div>
-            <p class="eyebrow">INTERACTIVE DEMO</p>
+            <p class="eyebrow">INTERACTIVE PIPELINE DEMO</p>
             <h2 id="lab-title">
-              Try a face check-in,
+              Face check-in verification,
               <br />
-              step by step.
+              <span>step by step.</span>
             </h2>
           </div>
           <p>
-            A browser-only simulation of the decisions my attendance system
-            makes for every scan. No camera is used and nothing is saved.
+            A deterministic browser simulation of the decision gates inside Face
+            Attendance AI. No camera is accessed and no data is stored.
           </p>
         </div>
         <div class="workflow-lab" data-reveal>
@@ -416,17 +392,17 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
             <span>
               <i class="status-dot"></i> face-check-in.pipeline
             </span>
-            <span class="demo-label">INTERACTIVE DEMO · SIMULATED</span>
+            <span class="demo-label">LOCAL SIMULATION · NO CAMERA</span>
           </div>
           <div class="lab-main">
             <div class="lab-controls">
-              <span class="mini-label">01 / CHOOSE A SCAN</span>
-              <label for="scenario">Who is at the camera?</label>
+              <span class="mini-label">01 / SELECT SCENARIO</span>
+              <label for="scenario">Input frame condition</label>
               <select id="scenario">
-                <option value="valid">An employee, good light</option>
-                <option value="dark">An employee, poor light</option>
-                <option value="photo">A printed photo held up</option>
-                <option value="unknown">Someone not enrolled</option>
+                <option value="valid">Enrolled employee, good light</option>
+                <option value="dark">Enrolled employee, poor light</option>
+                <option value="photo">Printed photo held to camera</option>
+                <option value="unknown">Unregistered person</option>
               </select>
               <div class="sample-input">
                 <span>
@@ -439,11 +415,12 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
                   face <b data-sample="face">Live employee</b>
                 </span>
               </div>
-              <button class="button button-orange" id="run-workflow">
-                <Icon name="play" size={16} /> Run check-in
+              <button class="button button-accent" id="run-workflow">
+                <Icon name="play" size={16} /> Run Pipeline
               </button>
               <p class="lab-footnote">
-                A local simulation of the real pipeline. No camera, no data.
+                Simulates YuNet detection, quality thresholds, MiniFASNet
+                liveness, and SFace matching.
               </p>
             </div>
             <div class="lab-canvas">
@@ -453,8 +430,8 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
                     <Icon name="search" />
                   </span>
                   <div>
-                    <small>DETECT</small>
-                    <b>Find the face</b>
+                    <small>STAGE 01 · DETECT</small>
+                    <b>Locate face & landmarks</b>
                   </div>
                   <span class="node-state">01</span>
                 </li>
@@ -463,8 +440,8 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
                     <Icon name="check" />
                   </span>
                   <div>
-                    <small>QUALITY</small>
-                    <b>Light, sharpness, pose</b>
+                    <small>STAGE 02 · QUALITY</small>
+                    <b>Light, sharpness & pose</b>
                   </div>
                   <span class="node-state">02</span>
                 </li>
@@ -473,8 +450,8 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
                     <Icon name="spark" />
                   </span>
                   <div>
-                    <small>LIVENESS</small>
-                    <b>Real face, not a photo</b>
+                    <small>STAGE 03 · LIVENESS</small>
+                    <b>Anti-spoofing check</b>
                   </div>
                   <span class="node-state">03</span>
                 </li>
@@ -483,8 +460,8 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
                     <Icon name="grid" />
                   </span>
                   <div>
-                    <small>MATCH</small>
-                    <b>Identify and record</b>
+                    <small>STAGE 04 · MATCH</small>
+                    <b>pgvector embedding lookup</b>
                   </div>
                   <span class="node-state">04</span>
                 </li>
@@ -492,7 +469,7 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
               <div class="lab-result" role="status" aria-live="polite">
                 <span class="result-dot"></span>
                 <p id="workflow-result">
-                  Ready. Choose who is at the camera and press run.
+                  Ready. Choose a scenario and run the pipeline.
                 </p>
               </div>
             </div>
@@ -504,34 +481,32 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
     <section class="section wrap" id="about" aria-labelledby="about-title">
       <div class="about-grid">
         <div class="about-copy" data-reveal>
-          <p class="eyebrow">ABOUT ME</p>
+          <p class="eyebrow">ABOUT</p>
           <h2 id="about-title">
-            I like software
+            Engineering reliable software
             <br />
-            <span>that people actually use.</span>
+            <span>for real-world teams.</span>
           </h2>
           <p>
-            I’m Bhargav, a Python developer at PHYTEC India in Visakhapatnam. My
-            favourite problems sit where AI meets everyday work: recognising a
-            face at the door, summarising the news, routing an enquiry.
+            I am Bhargav Sai Bhartu, a Python and AI developer at PHYTEC India in
+            Visakhapatnam. I focus on practical systems where computer vision,
+            APIs, and workflow automation eliminate manual bottlenecks.
           </p>
           <p>
-            I built a face-recognition attendance system end to end, from the
-            computer-vision pipeline to the server it runs on. Alongside it I
-            build LLM automations with n8n and work on Odoo CRM.
-          </p>
-          <p>
-            I learn by shipping: build it, test it, watch it in use, improve it.
+            From designing PostgreSQL schemas and FastAPI services to debugging
+            anti-spoofing thresholds and maintaining Docker deployments, I take
+            ownership across the full lifecycle—architecture, testing, and
+            production operations.
           </p>
           <div class="about-contact">
             <a class="text-link" href={`mailto:${profile.email}`}>
-              Let’s connect <Icon name="arrow" size={17} />
+              Get in touch <Icon name="arrow" size={16} />
             </a>
             <span>Telugu · English</span>
           </div>
         </div>
         <aside class="education-panel" data-reveal>
-          <h3>Education & milestones</h3>
+          <h3>Education & Achievements</h3>
           {profile.education.map((item) => (
             <div class="education-item">
               <span>{item.dates}</span>
@@ -543,7 +518,7 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
           <div class="milestone">
             <Icon name="spark" size={18} />
             <div>
-              <b>1st place · HACKAP Hackathon</b>
+              <b>1st Place · HACKAP Hackathon</b>
               <span>Andhra Pradesh · 2023</span>
             </div>
           </div>
@@ -556,7 +531,7 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
           </div>
           <details class="more-milestones">
             <summary>
-              Certificates & community <span>+</span>
+              Certifications & Leadership <span>+</span>
             </summary>
             <ul>
               <li>Full-Stack Development · Wipro</li>
@@ -574,61 +549,173 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
       id="contact"
       aria-labelledby="contact-title"
     >
-      <div data-reveal>
-        <p class="eyebrow">GET IN TOUCH</p>
+      <div class="contact-left" data-reveal>
+        <p class="eyebrow">CONTACT</p>
         <h2 id="contact-title">
-          Let’s talk about
+          Let’s connect about
           <br />
-          <span>what you’re building.</span>
+          <span>engineering roles or projects.</span>
         </h2>
         <p class="contact-description">
-          For developer opportunities, project conversations or a useful
-          exchange of ideas, I’d be happy to connect.
+          Open to Python, Backend, and Applied AI engineering opportunities and
+          technical collaborations.
         </p>
         <div class="contact-email">
           <a href={`mailto:${profile.email}`}>
             {profile.email}
-            <Icon name="arrow" size={23} />
+            <Icon name="arrow" size={20} />
           </a>
-          <button data-copy-email aria-label="Copy email address">
-            <Icon name="copy" size={19} />
+          <button data-copy-email aria-label="Copy email address" title="Copy email">
+            <Icon name="copy" size={18} />
           </button>
         </div>
         <div class="contact-links">
           <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
-            LinkedIn <Icon name="arrow" size={16} />
+            LinkedIn <Icon name="arrow" size={15} />
           </a>
           <a href={profile.github} target="_blank" rel="noopener noreferrer">
-            GitHub <Icon name="arrow" size={16} />
+            GitHub <Icon name="arrow" size={15} />
           </a>
           <a href={`tel:${profile.phone.replace(/\s/g, "")}`}>
-            Call me <Icon name="arrow" size={16} />
+            {profile.phone} <Icon name="arrow" size={15} />
           </a>
+        </div>
+
+        <aside class="resume-card">
+          <div class="resume-card-head">
+            <span class="mini-label">RESUME · 1-PAGE A4</span>
+            <Icon name="file" size={19} />
+          </div>
+          <h3>Resume & Credentials</h3>
+          <p>
+            Single-column ATS-ready resume covering experience at PHYTEC India,
+            Face Attendance AI, technical stack, and education.
+          </p>
+          <div class="resume-card-actions">
+            <a class="button button-dark" href={cvPdf} download>
+              <Icon name="down" size={16} /> Download PDF
+            </a>
+            <a class="button button-outline" href={`${base}/resume/`}>
+              View Online <Icon name="arrow" size={15} />
+            </a>
+          </div>
+          <div class="resume-card-meta">
+            <a href={cvDocx} download>
+              Download Word (.docx) <Icon name="down" size={13} />
+            </a>
+            <span>Synced with profile</span>
+          </div>
+        </aside>
+      </div>
+
+      <div class="contact-form-card" data-reveal>
+        <div class="form-card-head">
+          <span class="mini-label">DIRECT INQUIRY</span>
+          <Icon name="mail" size={18} />
+        </div>
+        <h3>Send a message</h3>
+        <p class="form-card-sub">
+          Share details about a role or project. Submissions go directly to{" "}
+          {profile.email}.
+        </p>
+        <form
+          id="contact-form"
+          class="contact-form"
+          data-endpoint={
+            profile.contactWebhookUrl ||
+            `https://formsubmit.co/ajax/${profile.email}`
+          }
+          data-is-webhook={profile.contactWebhookUrl ? "true" : "false"}
+        >
+          <input
+            type="text"
+            name="_honey"
+            class="hp-field"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+          />
+
+          <div class="form-row-two">
+            <div class="field">
+              <label for="contact-name">Name</label>
+              <input
+                id="contact-name"
+                name="name"
+                type="text"
+                required
+                autocomplete="name"
+                placeholder="Your name"
+              />
+            </div>
+            <div class="field">
+              <label for="contact-email">Email</label>
+              <input
+                id="contact-email"
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                placeholder="you@company.com"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="contact-topic">Subject</label>
+            <select id="contact-topic" name="topic">
+              <option value="Engineering Role / Hiring">
+                Engineering Role / Hiring
+              </option>
+              <option value="Project / Technical Collaboration">
+                Project / Technical Collaboration
+              </option>
+              <option value="Automation / AI Inquiry">
+                Automation / AI Inquiry
+              </option>
+              <option value="General Message">General Message</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="contact-message">Message</label>
+            <textarea
+              id="contact-message"
+              name="message"
+              rows={4}
+              required
+              placeholder="Share details about the role, project, or question..."
+            ></textarea>
+          </div>
+
+          <p id="contact-error" class="form-error" role="alert" hidden></p>
+
+          <button class="button button-dark form-submit" type="submit">
+            Send Message <Icon name="arrow" size={16} />
+          </button>
+        </form>
+
+        <div id="contact-success" class="form-success" hidden>
+          <div class="form-success-icon" aria-hidden="true">
+            <Icon name="check" size={22} />
+          </div>
+          <h4>Message sent — thank you</h4>
+          <p id="contact-success-copy">
+            Your message has been delivered to {profile.email}. I will review
+            your note and reply shortly.
+          </p>
+          <button
+            type="button"
+            class="button button-outline"
+            id="contact-reset"
+          >
+            Send another message
+          </button>
         </div>
       </div>
-      <aside class="resume-card" data-reveal>
-        <Icon name="file" size={27} />
-        <h3>
-          My experience,
-          <br />
-          in one page.
-        </h3>
-        <p>
-          A straightforward résumé covering my work, projects and current
-          skills.
-        </p>
-        <a class="button button-dark" href={cv} download>
-          Download résumé <Icon name="down" size={17} />
-        </a>
-        <div>
-          <a href={`${base}/resume/`}>Read online</a>
-          <a href={asset("Bhargav-Sai-Bhartu-Resume.docx")} download>
-            Word version
-          </a>
-        </div>
-      </aside>
     </section>
   </main>
+
   <footer class="site-footer wrap">
     <span>
       © {new Date().getFullYear()} {profile.name}
@@ -638,22 +725,17 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
         Motion: on
       </button>
       <button data-command-open>
-        Quick menu <kbd>⌘ K</kbd>
+        Quick menu <kbd>Ctrl K</kbd>
       </button>
       <a href="#top">Back to top ↑</a>
     </div>
   </footer>
-  <a class="floating-top" href="#top" aria-label="Back to top">
-    <span>↑</span>
-    <svg viewBox="0 0 44 44" aria-hidden="true">
-      <circle cx="22" cy="22" r="19" />
-    </svg>
-  </a>
+
   <dialog id="project-dialog" class="project-dialog">
     <div class="dialog-head">
-      <span class="mini-label">PROJECT NOTES</span>
+      <span class="mini-label">PROJECT ARCHITECTURE NOTES</span>
       <button class="share-project" data-copy-project-link>
-        <Icon name="copy" size={15} /> Copy project link
+        <Icon name="copy" size={15} /> Copy link
       </button>
       <button data-close-dialog aria-label="Close project details">
         <Icon name="close" />
@@ -661,62 +743,58 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
     </div>
     <div id="project-detail"></div>
   </dialog>
+
   <dialog
     id="recruiter-dialog"
     class="recruiter-dialog"
     aria-labelledby="recruiter-title"
   >
     <div class="dialog-head">
-      <span class="mini-label">THE 30-SECOND OVERVIEW</span>
+      <span class="mini-label">CANDIDATE OVERVIEW</span>
       <button data-close-dialog aria-label="Close overview">
         <Icon name="close" />
       </button>
     </div>
     <p class="eyebrow">PYTHON & AI DEVELOPER</p>
-    <h2 id="recruiter-title">
-      Hi, I'm Bhargav<span class="accent">.</span>
-    </h2>
+    <h2 id="recruiter-title">{profile.name}</h2>
     <p>{profile.summary}</p>
     <dl class="recruiter-facts">
       <div>
-        <dt>Current focus</dt>
-        <dd>Python · FastAPI · Computer vision · LLM automation</dd>
+        <dt>Core Focus</dt>
+        <dd>Python · FastAPI · Computer Vision · LLM Automation</dd>
       </div>
       <div>
         <dt>Experience</dt>
         <dd>
-          Junior Software Developer · PHYTEC India; full-stack intern ·
+          Junior Software Developer · PHYTEC India; Full Stack Intern ·
           Superport-IT
         </dd>
       </div>
       <div>
-        <dt>Project highlight</dt>
+        <dt>Flagship Project</dt>
         <dd>
-          Face-recognition attendance: liveness checks, live dashboard, phone
-          app, 91 tests
+          Face Attendance AI: liveness checks, live dashboard, PWA client, 91
+          automated tests
         </dd>
       </div>
       <div>
-        <dt>Currently learning</dt>
-        <dd>Edge AI on NPU boards · AI agents · JavaScript</dd>
+        <dt>Currently Learning</dt>
+        <dd>Edge AI on NPUs · AI agents · JavaScript</dd>
       </div>
     </dl>
     <div class="dialog-actions">
-      <a class="button button-dark" href={cv} download>
-        Download CV <Icon name="down" size={17} />
+      <a class="button button-dark" href={cvPdf} download>
+        <Icon name="down" size={16} /> Download PDF Resume
       </a>
       <button class="button button-outline" data-copy-summary>
-        <Icon name="copy" size={17} /> Copy summary
+        <Icon name="copy" size={16} /> Copy Summary
       </button>
     </div>
-    <a
-      class="text-link"
-      href={asset("Bhargav-Sai-Bhartu-Resume.docx")}
-      download
-    >
-      Prefer Word? Download .docx <Icon name="arrow" size={15} />
+    <a class="text-link" href={cvDocx} download>
+      Download Word format (.docx) <Icon name="arrow" size={15} />
     </a>
   </dialog>
+
   <dialog id="command-dialog" class="command-dialog" aria-label="Quick menu">
     <div class="command-search">
       <Icon name="search" />
@@ -726,7 +804,7 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
       <input
         id="command-input"
         type="search"
-        placeholder="Where would you like to go?"
+        placeholder="Jump to section or action..."
         autocomplete="off"
       />
       <button data-close-dialog aria-label="Close quick menu">
@@ -735,10 +813,11 @@ const cv = asset("Bhargav-Sai-Bhartu-Resume.pdf");
     </div>
     <div id="command-results" class="command-results"></div>
     <p class="command-help">
-      ↑ ↓ to move <span>↵ to select</span>
-      <span>esc to close</span>
+      ↑ ↓ navigate <span>↵ select</span>
+      <span>esc close</span>
     </p>
   </dialog>
+
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script>
     import "../scripts/main";

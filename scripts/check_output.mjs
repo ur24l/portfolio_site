@@ -2,7 +2,7 @@ import { readFile, access } from "node:fs/promises";
 import { resolve, join } from "node:path";
 const root = resolve("dist");
 const base = "/portfolio_site";
-const pages = ["index.html", "resume/index.html"];
+const pages = ["index.html", "resume/index.html", "thanks/index.html"];
 let checked = 0;
 for (const page of pages) {
   const html = await readFile(join(root, page), "utf8");

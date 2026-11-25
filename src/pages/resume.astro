@@ -3,60 +3,88 @@ import Layout from "../layouts/Layout.astro";
 import Icon from "../components/Icon.astro";
 import profile from "../data/profile.json";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const asset = (file: string) => `${base}/assets/${file}`;
+const cvPdf = asset("Bhargav-Sai-Bhartu-Resume.pdf");
+const cvDocx = asset("Bhargav-Sai-Bhartu-Resume.docx");
 ---
 
 <Layout
-  title="Résumé — Bhargav Sai Bhartu"
-  description="Experience, projects, skills and education of Bhargav Sai Bhartu, Python & AI developer at PHYTEC India."
+  title="Resume — Bhargav Sai Bhartu"
+  description="Experience, technical skills, projects, and education of Bhargav Sai Bhartu, Python & AI Developer at PHYTEC India."
 >
-  <div class="resume-toolbar">
-    <a href={`${base}/`}>← Back to portfolio</a>
-    <div>
-      <a
-        class="button button-dark"
-        href={`${base}/assets/Bhargav-Sai-Bhartu-Resume.pdf`}
-        download
-      >
-        Download PDF <Icon name="down" size={16} />
+  <header class="site-header resume-site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href={`${base}/`} aria-label="Back to portfolio home">
+        <span class="brand-mark">
+          B<span>.</span>
+        </span>
+        <span>
+          Bhargav Sai Bhartu<small>Python & AI Developer</small>
+        </span>
       </a>
-      <a
-        class="button button-outline"
-        href={`${base}/assets/Bhargav-Sai-Bhartu-Resume.docx`}
-        download
-      >
-        Word
+      <div class="header-tools">
+        <a class="header-resume" href={`${base}/`}>
+          ← Portfolio
+        </a>
+        <button class="tool" data-theme aria-label="Switch to dark theme">
+          <Icon name="moon" size={18} />
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="resume-toolbar">
+    <div class="resume-toolbar-meta">
+      <span class="mini-label">SINGLE-PAGE A4 · ATS-FRIENDLY</span>
+    </div>
+    <div class="resume-toolbar-actions">
+      <button class="button button-outline" type="button" onclick="window.print()">
+        Print
+      </button>
+      <a class="button button-outline" href={cvDocx} download>
+        <Icon name="down" size={15} /> Word (.docx)
+      </a>
+      <a class="button button-dark" href={cvPdf} download>
+        <Icon name="down" size={15} /> Download PDF
       </a>
     </div>
   </div>
+
   <main id="main" class="resume-sheet">
-    <header>
+    <header class="resume-header">
       <h1>{profile.name}</h1>
       <p class="resume-headline">{profile.headline}</p>
-      <p>
-        {profile.location} ·{" "}
-        <a href={`tel:${profile.phone.replace(/\s/g, "")}`}>{profile.phone}</a>{" "}
-        · <a href={`mailto:${profile.email}`}>{profile.email}</a>
-      </p>
-      <p>
-        <a href={profile.linkedin}>linkedin.com/in/bhargav-sai-bhartu</a> ·{" "}
-        <a href={profile.github}>github.com/ur24l</a>
+      <p class="resume-contact-line">
+        <span>{profile.location}</span>
+        <span aria-hidden="true">|</span>
+        <a href={`tel:${profile.phone.replace(/\s/g, "")}`}>{profile.phone}</a>
+        <span aria-hidden="true">|</span>
+        <a href={`mailto:${profile.email}`}>{profile.email}</a>
+        <span aria-hidden="true">|</span>
+        <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+          linkedin.com/in/bhargav-sai-bhartu
+        </a>
+        <span aria-hidden="true">|</span>
+        <a href={profile.github} target="_blank" rel="noopener noreferrer">
+          github.com/ur24l
+        </a>
       </p>
     </header>
+
     <section>
       <h2>Professional Summary</h2>
       <p>{profile.summary}</p>
     </section>
+
     <section>
-      <h2>Work Experience</h2>
+      <h2>Experience</h2>
       {profile.experience.map((job) => (
         <article>
           <div class="resume-row">
             <h3>{job.title}</h3>
             <span>{job.dates}</span>
           </div>
-          <p>
-            <strong>{job.org}</strong>
-          </p>
+          <p class="resume-org">{job.org}</p>
           <ul>
             {job.bullets.map((bullet) => (
               <li>{bullet}</li>
@@ -65,20 +93,26 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         </article>
       ))}
     </section>
+
     <section>
-      <h2>Skills and Current Learning</h2>
-      {profile.skills.map(([category, items]) => (
-        <p>
-          <strong>{category}:</strong> {items}
-        </p>
-      ))}
+      <h2>Technical Skills</h2>
+      <div class="resume-skills">
+        {profile.skills.map(([category, items]) => (
+          <p>
+            <strong>{category}:</strong> {items}
+          </p>
+        ))}
+      </div>
     </section>
+
     <section>
       <h2>Selected Projects</h2>
       {profile.projects.map((project) => (
         <article>
-          <h3>{project.name}</h3>
-          <p class="resume-tech">{project.tech}</p>
+          <div class="resume-proj-head">
+            <h3>{project.name}</h3>
+            <span class="resume-tech">{project.tech}</span>
+          </div>
           <ul>
             {project.bullets.map((bullet) => (
               <li>{bullet}</li>
@@ -87,6 +121,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         </article>
       ))}
     </section>
+
     <section>
       <h2>Education</h2>
       {profile.education.map((item) => (
@@ -95,122 +130,205 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             <h3>{item.degree}</h3>
             <span>{item.dates}</span>
           </div>
-          <p>
+          <p class="resume-org">
             {item.school} · {item.detail}
           </p>
         </article>
       ))}
     </section>
+
     <section>
-      <h2>Certifications and Achievements</h2>
+      <h2>Achievements & Certifications</h2>
       <ul>
         {profile.achievements.map((item) => (
           <li>{item}</li>
         ))}
       </ul>
+      <p class="resume-languages">Languages: Telugu (Native), English (Fluent)</p>
     </section>
   </main>
+
+  <script>
+    const root = document.documentElement;
+    const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
+    function syncTheme() {
+      const dark = root.dataset.theme
+        ? root.dataset.theme === "dark"
+        : systemDark.matches;
+      document
+        .querySelector("button[data-theme]")
+        ?.setAttribute(
+          "aria-label",
+          `Switch to ${dark ? "light" : "dark"} theme`,
+        );
+    }
+    document
+      .querySelector("button[data-theme]")
+      ?.addEventListener("click", () => {
+        const current =
+          root.dataset.theme || (systemDark.matches ? "dark" : "light");
+        root.dataset.theme = current === "dark" ? "light" : "dark";
+        try {
+          localStorage.setItem("portfolio-theme", root.dataset.theme);
+        } catch {}
+        syncTheme();
+      });
+    syncTheme();
+  </script>
+
   <style>
     .resume-toolbar {
-      width: min(900px, 100% - 40px);
-      margin: 30px auto;
+      width: min(860px, calc(100% - 40px));
+      margin: 28px auto 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 20px;
-      font-size: 12px;
+      flex-wrap: wrap;
+      gap: 14px;
     }
-    .resume-toolbar > div {
+    .resume-toolbar-meta .mini-label {
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+    .resume-toolbar-actions {
       display: flex;
       gap: 10px;
+      flex-wrap: wrap;
+    }
+    .resume-toolbar-actions .button {
+      min-height: 40px;
+      padding: 0 16px;
+      font-size: 13px;
+      gap: 8px;
     }
     .resume-sheet {
-      width: min(900px, 100% - 40px);
-      margin: 0 auto 50px;
+      width: min(860px, calc(100% - 40px));
+      margin: 0 auto 64px;
       background: var(--paper);
-      padding: 55px 60px;
+      padding: 48px 56px;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 14px;
-      line-height: 1.8;
+      line-height: 1.58;
+      box-shadow: 0 12px 32px -20px rgba(15, 23, 42, 0.14);
     }
-    .resume-sheet h1 {
-      font-size: 32px;
-      letter-spacing: -0.04em;
-      line-height: 1.2;
+    .resume-header h1 {
+      font-size: 30px;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+      color: var(--ink);
     }
-    .resume-sheet header > p {
-      font-size: 12px;
-      margin-top: 7px;
-    }
-    .resume-sheet header .resume-headline {
-      font-size: 13px;
-      margin: 10px 0;
-    }
-    .resume-sheet h2 {
-      font-size: 17px;
-      letter-spacing: 0;
-      margin-bottom: 10px;
+    .resume-headline {
+      font-size: 15px;
       font-weight: 600;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+    .resume-contact-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+    .resume-contact-line a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .resume-contact-line a:hover {
+      text-decoration: underline;
     }
     .resume-sheet section {
-      margin-top: 32px;
+      margin-top: 22px;
+    }
+    .resume-sheet h2 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 10px;
+    }
+    .resume-sheet article {
+      margin-top: 12px;
     }
     .resume-sheet h3 {
       font-size: 14px;
-      line-height: 1.6;
       font-weight: 600;
+      color: var(--ink);
     }
-    .resume-sheet article {
-      margin-top: 14px;
+    .resume-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+    }
+    .resume-row > span {
+      font-size: 13px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .resume-org {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .resume-proj-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px 12px;
+    }
+    .resume-tech {
+      font-size: 12.5px;
+      color: var(--muted);
+      font-family: var(--mono);
     }
     .resume-sheet ul {
       list-style: disc;
-      padding-left: 17px;
+      padding-left: 18px;
       margin-top: 5px;
     }
     .resume-sheet li {
-      padding-left: 2px;
-      margin-top: 3px;
+      margin-top: 4px;
+      color: var(--ink);
     }
-    .resume-sheet .resume-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
+    .resume-skills {
+      display: grid;
+      gap: 5px;
     }
-    .resume-row > span {
-      font-size: 11px;
-      flex: none;
+    .resume-skills strong {
+      color: var(--ink);
     }
-    .resume-tech {
-      font-size: 12px;
+    .resume-languages {
+      font-size: 13px;
       color: var(--muted);
-    }
-    .resume-sheet a {
-      text-decoration: underline;
-      text-underline-offset: 3px;
+      margin-top: 8px;
     }
     @media (max-width: 680px) {
       .resume-sheet {
-        padding: 30px 23px;
+        padding: 28px 20px;
       }
-      .resume-sheet h1 {
-        font-size: 28px;
+      .resume-header h1 {
+        font-size: 25px;
       }
-      .resume-sheet .resume-row {
-        display: block;
+      .resume-row {
+        flex-direction: column;
+        gap: 2px;
       }
-      .resume-toolbar .button {
-        font-size: 10px;
-        min-height: 40px;
-        padding-inline: 12px;
-        gap: 10px;
+      .resume-toolbar-actions {
+        width: 100%;
       }
-      .resume-toolbar {
-        font-size: 10px;
+      .resume-toolbar-actions .button {
+        flex: 1;
+        justify-content: center;
       }
     }
     @media print {
+      .resume-site-header,
       .resume-toolbar {
         display: none;
       }
@@ -219,13 +337,22 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         padding: 0;
         border: 0;
         margin: 0;
-        font-size: 10pt;
+        box-shadow: none;
+        font-size: 9.5pt;
+        line-height: 1.42;
       }
-      .resume-sheet h1 {
-        font-size: 22pt;
+      .resume-header h1 {
+        font-size: 20pt;
+      }
+      .resume-headline {
+        font-size: 10.5pt;
+      }
+      .resume-contact-line {
+        font-size: 8.8pt;
       }
       .resume-sheet h2 {
-        font-size: 12pt;
+        font-size: 9.5pt;
+        margin-bottom: 6px;
       }
       .resume-sheet section {
         margin-top: 12px;
@@ -234,21 +361,23 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         margin-top: 8px;
       }
       .resume-sheet h3 {
-        font-size: 10pt;
+        font-size: 9.8pt;
       }
-      .resume-sheet header > p,
-      .resume-row > span {
-        font-size: 9pt;
+      .resume-row > span,
+      .resume-org,
+      .resume-tech,
+      .resume-languages {
+        font-size: 8.8pt;
+      }
+      .resume-row {
+        flex-direction: row;
       }
       a {
-        color: #111;
-      }
-      .resume-sheet .resume-row {
-        display: flex;
+        color: #111 !important;
       }
       @page {
         size: A4;
-        margin: 15mm;
+        margin: 13mm;
       }
     }
   </style>

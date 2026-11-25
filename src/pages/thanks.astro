@@ -1,0 +1,108 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import profile from "../data/profile.json";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<Layout
+  title="Thank You — Bhargav Sai Bhartu"
+  description="Your message has been sent to Bhargav Sai Bhartu."
+>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href={`${base}/`} aria-label="Back to portfolio home">
+        <span class="brand-mark">
+          B<span>.</span>
+        </span>
+        <span>
+          Bhargav Sai Bhartu<small>Python & AI Developer</small>
+        </span>
+      </a>
+      <div class="header-tools">
+        <a class="header-resume" href={`${base}/resume/`}>
+          Resume <Icon name="arrow" size={14} />
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="wrap thanks-wrap">
+    <div class="thanks-card">
+      <div class="thanks-icon" aria-hidden="true">
+        <Icon name="check" size={24} />
+      </div>
+      <p class="eyebrow">MESSAGE RECEIVED</p>
+      <h1>Thank you for reaching out.</h1>
+      <p class="thanks-copy">
+        Your inquiry has been delivered to{" "}
+        <a href={`mailto:${profile.email}`}>{profile.email}</a>, and an
+        automatic confirmation email has been sent to your inbox. I will review
+        your message and reply shortly.
+      </p>
+      <div class="thanks-actions">
+        <a class="button button-dark" href={`${base}/`}>
+          ← Back to Portfolio
+        </a>
+        <a class="button button-outline" href={`${base}/resume/`}>
+          View Resume <Icon name="arrow" size={15} />
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <style>
+    .thanks-wrap {
+      min-height: calc(100dvh - 72px);
+      display: grid;
+      place-items: center;
+      padding-block: 48px;
+    }
+    .thanks-card {
+      width: min(560px, 100%);
+      padding: 40px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--paper);
+      box-shadow: 0 12px 32px -20px rgba(15, 23, 42, 0.14);
+    }
+    .thanks-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: var(--accent-light);
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .thanks-card h1 {
+      font-size: clamp(26px, 4vw, 34px);
+      letter-spacing: -0.03em;
+    }
+    .thanks-copy {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-top: 14px;
+    }
+    .thanks-copy a {
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .thanks-copy a:hover {
+      text-decoration: underline;
+    }
+    .thanks-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    @media (max-width: 520px) {
+      .thanks-card {
+        padding: 28px 22px;
+      }
+    }
+  </style>
+</Layout>
